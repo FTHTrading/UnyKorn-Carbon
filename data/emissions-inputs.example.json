@@ -1,0 +1,46 @@
+[
+  {
+    "entity": "acme-holdings",
+    "year": 2026,
+    "cloud":     { "monthly_usd": 2400 },
+    "travel":    { "flight_miles": 12000, "hotel_nights": 24 },
+    "headcount": { "fte": 1 },
+    "vehicle":   { "gasoline_gallons": 320 }
+  },
+  {
+    "entity": "acme-parent-inc",
+    "year": 2026,
+    "headcount": { "fte": 0 }
+  },
+  {
+    "entity": "acme-lending",
+    "year": 2026,
+    "utility":   { "electricity_kwh": 62000, "natural_gas_therms": 1400 },
+    "cloud":     { "monthly_usd": 850 },
+    "travel":    { "flight_miles": 42000, "hotel_nights": 72 },
+    "vehicle":   { "gasoline_gallons": 1800 },
+    "headcount": { "fte": 8 }
+  },
+  {
+    "entity": "example-hotel-se",
+    "year": 2026,
+    "utility":   { "electricity_kwh": 1450000, "natural_gas_therms": 22000 },
+    "vehicle":   { "gasoline_gallons": 900, "diesel_gallons": 400 },
+    "process_direct_tco2e": 18,
+    "headcount": { "fte": 42 }
+  },
+  {
+    "entity": "example-waterpark",
+    "year": 2026,
+    "utility":   { "electricity_kwh": 2380000, "natural_gas_therms": 41000 },
+    "vehicle":   { "diesel_gallons": 620 },
+    "process_direct_tco2e": 42,
+    "headcount": { "fte": 68 }
+  },
+  {
+    "entity": "example-vault-spv",
+    "year": 2026,
+    "cloud":     { "monthly_usd": 40 },
+    "headcount": { "fte": 0 }
+  }
+]

@@ -1,0 +1,47 @@
+[
+  {
+    "slug": "acme-holdings",
+    "legal_name": "Acme Holdings LLC",
+    "kind": "operating_company",
+    "jurisdiction": "WY",
+    "notes": "Example: parent operating company. Cloud-first ops, small footprint."
+  },
+  {
+    "slug": "acme-parent-inc",
+    "legal_name": "Acme Parent Inc.",
+    "kind": "operating_company",
+    "jurisdiction": "DE",
+    "notes": "Example: pure holding company, near-zero direct emissions."
+  },
+  {
+    "slug": "acme-lending",
+    "legal_name": "Acme Commercial Lending Co.",
+    "kind": "operating_company",
+    "jurisdiction": "PA",
+    "notes": "Example: mid-size lending office with typical utility, cloud, travel and vehicle profile."
+  },
+  {
+    "slug": "example-hotel-se",
+    "legal_name": "Example Southeast Hotel LLC",
+    "kind": "hotel",
+    "parent": "acme-lending",
+    "jurisdiction": "GA",
+    "notes": "Example hospitality SPV in a voluntary REC state. Kitchen + HVAC + laundry direct process."
+  },
+  {
+    "slug": "example-waterpark",
+    "legal_name": "Example Waterpark LLC",
+    "kind": "hospitality",
+    "parent": "acme-lending",
+    "jurisdiction": "GA",
+    "notes": "Example large-format hospitality asset. Highest energy intensity in a portfolio: pool heat, pumps, motors."
+  },
+  {
+    "slug": "example-vault-spv",
+    "legal_name": "Example Vault SPV",
+    "kind": "spv",
+    "parent": "acme-parent-inc",
+    "jurisdiction": "DE",
+    "notes": "Example: cold-storage / minimal-ops SPV. Emissions are digital-only."
+  }
+]

@@ -1,0 +1,25 @@
+# Private portfolio data — real entities, real utility bills, real headcount
+# Only the *.example.json versions are safe for the public repo.
+/data/entities.json
+/data/emissions-inputs.json
+/data/srec-inputs.json
+
+# Generated reports may contain real portfolio numbers
+/reports/
+
+# Local dashboard — rendered from private data. Only docs/index.html (public,
+# example-only) is committed.
+/dashboard/local.html
+
+# Node
+node_modules/
+npm-debug.log*
+pnpm-debug.log*
+.pnpm-store/
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp

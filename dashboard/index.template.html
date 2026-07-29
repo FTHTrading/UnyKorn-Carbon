@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UnyKorn Carbon — Portfolio · FY__YEAR__</title>
+<meta name="description" content="UnyKorn Carbon — portfolio carbon accounting, SREC valuation, and offset recommendation for private company portfolios.">
+<style>
+  :root {
+    --navy-900: #0B2545;
+    --navy-700: #13315C;
+    --navy-500: #345989;
+    --sky-400:  #8DA9C4;
+    --paper:    #FBFBF9;
+    --cream:    #F5EFE0;
+    --ink:      #1C1C1C;
+    --dim:      #6b6b6b;
+    --line:     #d9d3c2;
+    --leaf:     #2f6b3d;
+    --amber:    #b58900;
+    --serif:    'Georgia', 'Iowan Old Style', 'Times New Roman', serif;
+    --sans:     'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; background: var(--cream); color: var(--ink); font-family: var(--serif); font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  .hero {
+    background: var(--paper); border: 1px solid var(--line); border-top: 4px solid var(--navy-700);
+    padding: 36px 40px; margin-bottom: 28px;
+  }
+  .brand { font-family: var(--sans); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--navy-500); margin-bottom: 12px; }
+  .hero h1 { font-family: var(--serif); font-size: 40px; line-height: 1.08; letter-spacing: -0.01em; color: var(--navy-900); margin: 0 0 8px; }
+  .hero .tag { font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--navy-500); margin: 0; }
+  .hero .meta { margin-top: 18px; font-family: var(--sans); font-size: 12px; color: var(--dim); letter-spacing: 0.06em; }
+
+  .section-title { font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--navy-700); border-left: 4px solid var(--sky-400); padding-left: 12px; margin: 36px 0 16px; }
+
+  .card { background: var(--paper); border: 1px solid var(--line); padding: 28px 30px; margin-bottom: 20px; }
+  .card h2 { font-family: var(--serif); font-size: 22px; color: var(--navy-900); margin: 0 0 12px; }
+
+  .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin-bottom: 8px; }
+  .kpi { background: var(--paper); border: 1px solid var(--line); border-left: 3px solid var(--navy-700); padding: 20px 22px; }
+  .kpi .label { font-family: var(--sans); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--navy-500); margin: 0 0 6px; }
+  .kpi .value { font-family: var(--serif); font-size: 30px; color: var(--navy-900); font-weight: 700; margin: 0; line-height: 1.1; }
+  .kpi .sub { font-family: var(--serif); font-size: 12px; color: var(--dim); margin: 4px 0 0; font-style: italic; }
+  .kpi.leaf { border-left-color: var(--leaf); }
+  .kpi.leaf .value { color: var(--leaf); }
+  .kpi.amber { border-left-color: var(--amber); }
+  .kpi.amber .value { color: var(--amber); }
+
+  table { width: 100%; border-collapse: collapse; font-family: var(--serif); font-size: 14px; margin: 8px 0; }
+  thead th { text-align: left; font-family: var(--sans); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--paper); background: var(--navy-700); padding: 10px 12px; font-weight: 600; }
+  thead th.num { text-align: right; }
+  tbody td { padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  tbody td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tbody tr:nth-child(even) { background: #fafaf7; }
+  tbody td.name { font-weight: 600; color: var(--navy-900); }
+  tbody td.dim { color: var(--dim); font-size: 12px; }
+
+  .cat-bars td { padding: 6px 10px; border-bottom: 1px solid var(--line); }
+  .cat-bars .barcell { min-width: 200px; }
+  .bar { height: 10px; background: var(--sky-400); display: inline-block; vertical-align: middle; border-radius: 2px; }
+
+  footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); text-align: center; font-family: var(--serif); font-size: 12px; color: var(--dim); font-style: italic; line-height: 1.7; }
+  a { color: var(--navy-700); }
+  @media (max-width: 640px) { .hero h1 { font-size: 30px; } .card { padding: 22px; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<section class="hero">
+  <div class="brand">UnyKorn LLC · Portfolio Sustainability Report</div>
+  <h1>UnyKorn Carbon</h1>
+  <p class="tag">Portfolio carbon footprint, SREC value, and offset gap for fiscal year __YEAR__.</p>
+  <div class="meta">Generated <span id="gen-date">__GENERATED__</span> · UnyKorn LLC · Wyoming · EIN 42-3536633 · Mode: __MODE__</div>
+</section>
+
+<div class="section-title">Portfolio at a glance · FY__YEAR__</div>
+<div class="kpi-row" id="kpis"></div>
+
+<div class="section-title">Emissions by entity</div>
+<section class="card">
+  <table id="entities-table">
+    <thead>
+      <tr>
+        <th>Entity</th>
+        <th class="num">Gross tCO2e</th>
+        <th class="num">SREC-avoided</th>
+        <th class="num">Net gap</th>
+        <th class="num">SREC value (USD)</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</section>
+
+<div class="section-title">Emissions by category (portfolio total)</div>
+<section class="card">
+  <table class="cat-bars" id="cat-table">
+    <tbody></tbody>
+  </table>
+</section>
+
+<div class="section-title">Recommended offset portfolio</div>
+<section class="card">
+  <p style="margin:0 0 12px; font-size:14px; color: var(--dim);">Default mix: 40% forestry · 30% soil carbon · 20% biochar · 10% direct air capture. Ranges reflect current voluntary-market pricing bands.</p>
+  <table id="offset-table">
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th class="num">Weight</th>
+        <th class="num">tCO2e</th>
+        <th class="num">Cost low</th>
+        <th class="num">Cost high</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</section>
+
+<footer>
+  UnyKorn LLC · <a href="mailto:kevan@ldrcllc.com">kevan@ldrcllc.com</a><br>
+  Emissions factors from EPA eGRID 2023 + EPA GHG Emission Factors Hub (April 2024). SREC prices are quarterly indicative benchmarks; override in data/srec-markets.json for authoritative values.
+</footer>
+
+</div>
+
+<script>
+const DATA = __DATA__;
+
+function usd(n) { return "$" + Math.round(n).toLocaleString("en-US"); }
+function t(n)   { return n.toLocaleString("en-US", { maximumFractionDigits: 1 }); }
+
+// KPIs
+const r = DATA.rollup;
+const kpiEl = document.getElementById("kpis");
+kpiEl.innerHTML = `
+  <div class="kpi"><p class="label">Gross emissions</p><p class="value">${t(r.gross_tco2e)}</p><p class="sub">tCO2e across ${r.total_entities} entities</p></div>
+  <div class="kpi leaf"><p class="label">SREC-avoided</p><p class="value">${t(r.srec_avoided_tco2e)}</p><p class="sub">tCO2e from renewable generation</p></div>
+  <div class="kpi amber"><p class="label">Net offset gap</p><p class="value">${t(r.net_tco2e_needing_offset)}</p><p class="sub">tCO2e requiring offsets</p></div>
+  <div class="kpi"><p class="label">SREC value</p><p class="value">${usd(r.total_srec_value_usd)}</p><p class="sub">indicative market value</p></div>
+  <div class="kpi amber"><p class="label">Offset cost</p><p class="value">${usd(r.estimated_offset_cost_low_usd)}</p><p class="sub">low – high: ${usd(r.estimated_offset_cost_high_usd)}</p></div>
+`;
+
+// Entities table
+const entitiesBody = document.querySelector("#entities-table tbody");
+DATA.rollup.per_entity
+  .slice()
+  .sort((a,b) => b.gross_tco2e - a.gross_tco2e)
+  .forEach(e => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td class="name">${e.legal_name}<br><span class="dim">${e.entity}</span></td>
+      <td class="num">${t(e.gross_tco2e)}</td>
+      <td class="num">${t(e.srec_avoided_tco2e)}</td>
+      <td class="num"><strong>${t(e.net_tco2e)}</strong></td>
+      <td class="num">${usd(e.srec_value_usd)}</td>`;
+    entitiesBody.appendChild(tr);
+  });
+
+// Category bars
+const cats = { electricity:0, natural_gas:0, cloud:0, travel:0, vehicle:0, process:0, headcount_overhead:0 };
+DATA.breakdowns.forEach(b => {
+  for (const [k,v] of Object.entries(b.categories)) cats[k] += v;
+});
+const maxCat = Math.max(...Object.values(cats));
+const catBody = document.querySelector("#cat-table tbody");
+const catLabels = {
+  electricity:"Electricity",
+  natural_gas:"Natural gas",
+  cloud:"Cloud compute",
+  travel:"Travel",
+  vehicle:"Vehicle fuel",
+  process:"Direct process",
+  headcount_overhead:"Headcount overhead",
+};
+for (const [k, v] of Object.entries(cats).sort((a,b)=>b[1]-a[1])) {
+  const tr = document.createElement("tr");
+  const pct = maxCat ? (v/maxCat*100) : 0;
+  tr.innerHTML = `<td style="width:170px;">${catLabels[k]}</td>
+    <td class="barcell"><span class="bar" style="width:${pct.toFixed(1)}%;"></span></td>
+    <td class="num" style="width:120px;">${t(v)} tCO2e</td>`;
+  catBody.appendChild(tr);
+}
+
+// Offset portfolio
+const offsetBody = document.querySelector("#offset-table tbody");
+DATA.offsetRec.portfolio.forEach(p => {
+  const tr = document.createElement("tr");
+  tr.innerHTML = `<td class="name">${p.category.replace(/_/g," ")}</td>
+    <td class="num">${p.weight_pct}%</td>
+    <td class="num">${t(p.tco2e_allocated)}</td>
+    <td class="num">${usd(p.cost_low_usd)}</td>
+    <td class="num">${usd(p.cost_high_usd)}</td>`;
+  offsetBody.appendChild(tr);
+});
+const foot = document.createElement("tr");
+foot.style.background = "#eaf1ec";
+foot.innerHTML = `<td class="name" colspan="3" style="text-align:right;">TOTAL</td>
+  <td class="num"><strong>${usd(DATA.offsetRec.total_cost_usd_low)}</strong></td>
+  <td class="num"><strong>${usd(DATA.offsetRec.total_cost_usd_high)}</strong></td>`;
+offsetBody.appendChild(foot);
+</script>
+</body>
+</html>

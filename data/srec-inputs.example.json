@@ -1,0 +1,20 @@
+[
+  {
+    "entity": "example-hotel-se",
+    "year": 2026,
+    "state": "GA",
+    "generation_kwh": 145000,
+    "grid_region": "SRSO",
+    "already_sold_srecs": 0,
+    "notes": "Example: 100kW rooftop PV in a voluntary REC state."
+  },
+  {
+    "entity": "example-waterpark",
+    "year": 2026,
+    "state": "GA",
+    "generation_kwh": 380000,
+    "grid_region": "SRSO",
+    "already_sold_srecs": 0,
+    "notes": "Example: 260kW canopy PV over parking + pool-house roof."
+  }
+]

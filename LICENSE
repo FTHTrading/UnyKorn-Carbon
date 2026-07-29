@@ -1,0 +1,18 @@
+Copyright (c) 2026 UnyKorn LLC. All rights reserved.
+
+The materials in this repository — including the carbon accounting engine,
+emissions factor tables, SREC valuation logic, offset recommendation logic,
+dashboard templates, and product documentation — are proprietary to UnyKorn
+LLC (Wyoming EIN 42-3536633) and are made publicly available for the sole
+purpose of describing the UnyKorn Carbon service offering to prospective
+clients and partners.
+
+Emissions factors incorporated into this codebase are derived from
+publicly-published US EPA, DEFRA, Cornell HCMI, and voluntary-market
+benchmark sources. Nothing in this repository constitutes audited financial
+statements, regulatory-grade disclosures, or professional advice.
+
+No license is granted to copy, redistribute, adapt, or commercially reproduce
+this codebase without prior written consent from UnyKorn LLC.
+
+Contact: Kevan Burns · kevan@ldrcllc.com

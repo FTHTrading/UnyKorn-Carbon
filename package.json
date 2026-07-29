@@ -1,0 +1,24 @@
+{
+  "name": "unykorn-carbon",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Carbon footprint accounting + SREC engine for UnyKorn and LD Capital portfolio",
+  "type": "module",
+  "bin": {
+    "carbon": "./src/cli.ts"
+  },
+  "scripts": {
+    "calc": "tsx src/cli.ts calc",
+    "srec": "tsx src/cli.ts srec",
+    "offsets": "tsx src/cli.ts offsets",
+    "report": "tsx src/cli.ts report",
+    "dashboard": "tsx src/cli.ts dashboard",
+    "dashboard:publish": "tsx src/cli.ts dashboard --publish",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}
