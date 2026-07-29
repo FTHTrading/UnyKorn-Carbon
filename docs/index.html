@@ -57,8 +57,8 @@
   }
   .orb {
     position: absolute; border-radius: 50%;
-    filter: blur(140px); opacity: 0.30; mix-blend-mode: screen;
-    animation: drift 24s ease-in-out infinite;
+    filter: blur(160px); opacity: 0.18; mix-blend-mode: screen;
+    animation: drift 30s ease-in-out infinite;
   }
   .orb-a { width: 700px; height: 700px; top: -180px; left: -180px; background: radial-gradient(circle, #4ea1ff 0%, transparent 60%); animation-delay: 0s; }
   .orb-b { width: 580px; height: 580px; top: 42%; right: -140px; background: radial-gradient(circle, #6ce3d0 0%, transparent 60%); animation-delay: -8s; }
@@ -571,6 +571,107 @@
   coingecko-coin-price-marquee-widget {
     display: block; min-height: 60px;
   }
+
+  /* ========== SYSTEM STATUS PANEL ========== */
+  .sys-panel {
+    max-width: 1280px; margin: 60px auto 0; padding: 0 30px;
+  }
+  .sys-frame {
+    border: 1px solid var(--line-hi);
+    border-radius: 12px;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.032), rgba(255,255,255,0.008)),
+      radial-gradient(1200px circle at 100% 0%, rgba(108,227,208,0.04), transparent 50%);
+    padding: 26px 30px 30px;
+  }
+  .sys-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-bottom: 20px; margin-bottom: 22px;
+    border-bottom: 1px solid var(--line);
+    flex-wrap: wrap; gap: 12px;
+  }
+  .sys-header .sys-title {
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--mercury); font-weight: 500;
+  }
+  .sys-header .sys-title span { color: var(--glow-cyan); }
+  .sys-header .sys-meta {
+    font-family: var(--mono); font-size: 11px; color: var(--dim);
+    letter-spacing: 0.06em;
+  }
+  .sys-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 12px;
+  }
+  .sys-item {
+    padding: 16px 18px;
+    background: rgba(255,255,255,0.024);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .sys-item .row1 { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .sys-item .mod-name {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em;
+    color: var(--dim); text-transform: uppercase; font-weight: 500;
+  }
+  .sys-item .badge {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em;
+    padding: 3px 8px; border-radius: 4px; font-weight: 600;
+    text-transform: uppercase;
+  }
+  .sys-item .badge.live { background: rgba(157,214,122,0.14); color: var(--glow-leaf); border: 1px solid rgba(157,214,122,0.28); }
+  .sys-item .badge.plan { background: rgba(243,197,109,0.12); color: var(--glow-warm); border: 1px solid rgba(243,197,109,0.28); }
+  .sys-item .badge.idea { background: rgba(139,145,156,0.10); color: var(--dim); border: 1px solid rgba(139,145,156,0.24); }
+  .sys-item .mod-label {
+    font-size: 15px; font-weight: 600; color: var(--platinum);
+    letter-spacing: -0.005em;
+  }
+  .sys-item .mod-sub {
+    font-family: var(--mono); font-size: 11.5px; color: var(--mercury);
+    letter-spacing: 0.02em;
+  }
+
+  /* ========== DATA / REF LISTS ========== */
+  .reflist {
+    background: var(--panel);
+    border: 1px solid var(--line-hi);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .refrow {
+    display: grid;
+    grid-template-columns: 180px 1fr 220px;
+    gap: 22px;
+    padding: 18px 26px;
+    border-bottom: 1px solid var(--line);
+    align-items: baseline;
+  }
+  .refrow:last-child { border-bottom: none; }
+  .refrow:hover { background: rgba(255,255,255,0.016); }
+  .refrow .rcat {
+    font-family: var(--mono); font-size: 11.5px; color: var(--glow-cyan);
+    letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500;
+  }
+  .refrow .rtitle {
+    font-size: 15px; color: var(--platinum); font-weight: 500;
+    letter-spacing: -0.005em; line-height: 1.5;
+  }
+  .refrow .rtitle .rdesc {
+    display: block; margin-top: 4px; font-size: 13.5px;
+    color: var(--mercury); font-weight: 400; line-height: 1.5;
+  }
+  .refrow .rlink {
+    text-align: right; font-family: var(--mono); font-size: 12.5px;
+    color: var(--mercury); text-decoration: none; letter-spacing: 0.02em;
+  }
+  .refrow .rlink:hover { color: var(--glow-cyan); }
+  .refrow .rlink::after { content: ' ↗'; }
+  @media (max-width: 900px) {
+    .refrow { grid-template-columns: 1fr; gap: 8px; padding: 18px 22px; }
+    .refrow .rlink { text-align: left; margin-top: 4px; }
+  }
 </style>
 </head>
 <body>
@@ -588,11 +689,12 @@
     <div class="brand"><span class="dot"></span> UnyKorn Carbon</div>
     <div class="nav-links">
       <a href="#engine">Engine</a>
-      <a href="#live">Live markets</a>
-      <a href="#energy">Energy markets</a>
-      <a href="#players">Who's building</a>
+      <a href="#live">Markets</a>
+      <a href="#energy">Energy</a>
+      <a href="#players">Landscape</a>
+      <a href="#frameworks">Open frameworks</a>
       <a href="#onchain">On-chain</a>
-      <a href="#future">Future</a>
+      <a href="#references">References</a>
       <a href="./dashboard.html">Dashboard</a>
     </div>
     <a class="nav-cta" href="mailto:kevan.burns@fthtrading.com?subject=UnyKorn%20Carbon">Contact</a>
@@ -637,6 +739,66 @@
     </div>
   </div>
 </section>
+
+<!-- ================= SYSTEM STATUS ================= -->
+<div class="sys-panel">
+  <div class="sys-frame">
+    <div class="sys-header">
+      <div class="sys-title"><span>SYS</span> · Modules · Runtime status</div>
+      <div class="sys-meta">unykorn-carbon @ v0.1 · main · fthtrading.github.io/UnyKorn-Carbon</div>
+    </div>
+    <div class="sys-grid">
+      <div class="sys-item">
+        <div class="row1">
+          <div class="mod-name">MOD-01 · engine</div>
+          <div class="badge live">Live</div>
+        </div>
+        <div class="mod-label">Emissions + SREC + Offsets engine</div>
+        <div class="mod-sub">src/ · Node 20+ · TypeScript</div>
+      </div>
+      <div class="sys-item">
+        <div class="row1">
+          <div class="mod-name">MOD-02 · dataset</div>
+          <div class="badge live">Loaded</div>
+        </div>
+        <div class="mod-label">Example portfolio · 6 entities</div>
+        <div class="mod-sub">data/*.example.json · FY2026</div>
+      </div>
+      <div class="sys-item">
+        <div class="row1">
+          <div class="mod-name">MOD-03 · dashboard</div>
+          <div class="badge live">Rendered</div>
+        </div>
+        <div class="mod-label">LDX-brand HTML dashboard</div>
+        <div class="mod-sub">docs/dashboard.html · public</div>
+      </div>
+      <div class="sys-item">
+        <div class="row1">
+          <div class="mod-name">MOD-04 · LPS-1 receipts</div>
+          <div class="badge plan">Q1 2027</div>
+        </div>
+        <div class="mod-label">On-chain retirement receipts</div>
+        <div class="mod-sub">Polygon 137 · Bitcoin OTS</div>
+      </div>
+      <div class="sys-item">
+        <div class="row1">
+          <div class="mod-name">MOD-05 · registry bridge</div>
+          <div class="badge plan">Q3 2027</div>
+        </div>
+        <div class="mod-label">ERC-3643 permissioned tokens</div>
+        <div class="mod-sub">Puro.earth pilot target</div>
+      </div>
+      <div class="sys-item">
+        <div class="row1">
+          <div class="mod-name">MOD-06 · copilot</div>
+          <div class="badge idea">Planned</div>
+        </div>
+        <div class="mod-label">Carbon Copilot AI agent</div>
+        <div class="mod-sub">Anthropic Claude · engine-backed</div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ================= LIVE TICKER ================= -->
 <div class="ticker-wrap">
@@ -1369,10 +1531,162 @@
   </div>
 </section>
 
+<!-- ================= OPEN FRAMEWORKS ================= -->
+<section id="frameworks" class="stage">
+  <div class="reveal">
+    <div class="eyebrow">06 · Open frameworks &amp; data sources</div>
+    <h2 class="section-title">Nothing proprietary in the ground-truth layer. <span class="accent">Every factor cites its source.</span></h2>
+    <p class="section-lede">The engine ships with EPA and DEFRA constants because those are open, government-published, and citable. The open standards below are what serious counterparties (auditors, LP CFOs, CMBS lenders, insurance underwriters) expect a carbon disclosure to be built on. This is the reference set — every one of them is free to read, and most are free to integrate.</p>
+  </div>
+
+  <!-- Standards -->
+  <div class="reveal">
+    <div class="cat-header">
+      <span class="cat-num">A</span>
+      <h3>Reporting &amp; accounting standards</h3>
+      <span class="cat-count">7 frameworks</span>
+    </div>
+    <div class="card-grid tight">
+      <div class="card company">
+        <h3>GHG Protocol</h3>
+        <div class="subhead">WBCSD + WRI · the base standard</div>
+        <p>The Scope 1 / 2 / 3 accounting framework every other standard cites. Corporate Standard + Scope 3 Standard + Product Standard. What "Scope 2" actually means, in law.</p>
+      </div>
+      <div class="card company">
+        <h3>PCAF</h3>
+        <div class="subhead">Financed emissions · banking</div>
+        <p>Partnership for Carbon Accounting Financials — the standard for how banks and asset managers report financed emissions across loans, mortgages, project finance, and equity portfolios.</p>
+      </div>
+      <div class="card company">
+        <h3>SBTi</h3>
+        <div class="subhead">Science-based targets</div>
+        <p>Science Based Targets initiative. The methodology behind every "net-zero by 20XX" corporate pledge. Sets what a credible transition pathway looks like per sector.</p>
+      </div>
+      <div class="card company">
+        <h3>CDP</h3>
+        <div class="subhead">Disclosure platform</div>
+        <p>Formerly Carbon Disclosure Project. 23,000+ companies file annual environmental disclosures. Institutional-investor-driven — required by many LP mandates.</p>
+      </div>
+      <div class="card company">
+        <h3>ISSB · IFRS S1 / S2</h3>
+        <div class="subhead">Global sustainability accounting</div>
+        <p>International Sustainability Standards Board. IFRS S1 (general) + S2 (climate-specific). Being adopted by 20+ jurisdictions as the sustainability-reporting equivalent of IFRS accounting.</p>
+      </div>
+      <div class="card company">
+        <h3>TCFD</h3>
+        <div class="subhead">Climate risk disclosure</div>
+        <p>Task Force on Climate-related Financial Disclosures. Physical + transition risk framework. Absorbed into IFRS S2 in 2024 but the four-pillar structure (governance / strategy / risk / metrics) remains standard.</p>
+      </div>
+      <div class="card company">
+        <h3>RMI Carbon Crediting Data Framework</h3>
+        <div class="subhead">Rocky Mountain Institute · open data schema</div>
+        <p>Free, open-source data schema for carbon-credit metadata. Purpose-built for interoperability across registries and rating agencies. What our future registry-bridge should conform to.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Data sources -->
+  <div class="reveal">
+    <div class="cat-header">
+      <span class="cat-num">B</span>
+      <h3>Open data + APIs</h3>
+      <span class="cat-count">9 sources</span>
+    </div>
+    <div class="card-grid tight">
+      <div class="card company">
+        <h3>EPA eGRID</h3>
+        <div class="subhead">US · grid emissions factors</div>
+        <p>The definitive US grid emission factors, per subregion, per year. Powers Scope 2 electricity math for every serious US carbon accounting tool. Free bulk download + CSV.</p>
+      </div>
+      <div class="card company">
+        <h3>EPA GHG Emission Factors Hub</h3>
+        <div class="subhead">US · fuel + gas + process</div>
+        <p>Government-published fuel combustion, natural gas, and process emissions factors. Updated annually. What our factors.ts is built on.</p>
+      </div>
+      <div class="card company">
+        <h3>EIA Open Data</h3>
+        <div class="subhead">US · real-time grid + generation</div>
+        <p>US Energy Information Administration open API. Hourly grid data by balancing authority, generation mix, storage flows, prices. Best free source for real-time US energy analytics.</p>
+      </div>
+      <div class="card company">
+        <h3>ENTSO-E Transparency Platform</h3>
+        <div class="subhead">EU · 39-country grid data</div>
+        <p>Federation of European Transmission System Operators. Near-real-time cross-border energy flows, generation, load, prices for 39 European countries. Free API with registration.</p>
+      </div>
+      <div class="card company">
+        <h3>EU-ETS Union Registry</h3>
+        <div class="subhead">EU · compliance carbon</div>
+        <p>The EU Emissions Trading System registry. Public allocation, verified emissions, and surrender data for every EU-ETS installation. Free bulk download annually.</p>
+      </div>
+      <div class="card company">
+        <h3>Climate TRACE</h3>
+        <div class="subhead">Satellite + AI emissions inventory</div>
+        <p>Al Gore-backed open-source emissions inventory. Uses satellite imagery and AI to estimate emissions at facility level across 352 industry categories. Covers 79,000+ major emitters globally.</p>
+      </div>
+      <div class="card company">
+        <h3>Global Forest Watch</h3>
+        <div class="subhead">WRI · deforestation monitoring</div>
+        <p>Near-real-time forest cover change from satellite. Essential for verifying nature-based carbon credit permanence and additionality. Free API and bulk data.</p>
+      </div>
+      <div class="card company">
+        <h3>OpenClimate.io</h3>
+        <div class="subhead">Aggregated jurisdictional emissions</div>
+        <p>Open-source aggregation of national, subnational, and city emissions inventories. Reconciles data from UNFCCC, CDP, national statistics agencies, and academic databases.</p>
+      </div>
+      <div class="card company">
+        <h3>Climatiq API</h3>
+        <div class="subhead">Emissions factor API · commercial</div>
+        <p>Curated emissions factor API pulling from 100+ authoritative datasets. Serves as the emissions-factor SDK for many footprint SaaS players. Free tier + commercial plans.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Open software -->
+  <div class="reveal">
+    <div class="cat-header">
+      <span class="cat-num">C</span>
+      <h3>Open-source engines &amp; libraries</h3>
+      <span class="cat-count">6 projects</span>
+    </div>
+    <div class="card-grid tight">
+      <div class="card company">
+        <h3>openLCA</h3>
+        <div class="subhead">GreenDelta · full LCA software</div>
+        <p>The most widely-used open-source Life Cycle Assessment platform. Supports EPD, product-level carbon footprint, and ecosystem impact modeling. Free desktop app + Java SDK.</p>
+      </div>
+      <div class="card company">
+        <h3>Brightway</h3>
+        <div class="subhead">Python · LCA framework</div>
+        <p>Modular Python LCA framework — Brightway2 and now Brightway 2.5. Preferred by researchers doing custom methodology work. Full ecoinvent database support.</p>
+      </div>
+      <div class="card company">
+        <h3>PyPSA</h3>
+        <div class="subhead">Python for Power System Analysis</div>
+        <p>Open-source library for simulating electricity systems. Power flow, capacity expansion, storage optimization. Used for energy-transition scenario modeling by academic and NGO teams.</p>
+      </div>
+      <div class="card company">
+        <h3>Green Software Foundation SCI</h3>
+        <div class="subhead">Software Carbon Intensity spec</div>
+        <p>Open specification for measuring software's carbon intensity per functional unit. Reference implementations in Python, .NET, Go. Adopted by cloud carbon dashboards.</p>
+      </div>
+      <div class="card company">
+        <h3>Cloud Carbon Footprint</h3>
+        <div class="subhead">ThoughtWorks · cloud emissions tool</div>
+        <p>Open-source tool that estimates AWS, GCP, Azure carbon footprint from billing exports. Same class of tool as our engine's cloud module but with detailed per-service breakdowns.</p>
+      </div>
+      <div class="card company">
+        <h3>RMI Application Suite</h3>
+        <div class="subhead">Rocky Mountain Institute · policy + industry tools</div>
+        <p>Portfolio of open tools from RMI covering steel, aluminum, cement, hydrogen, transport, and buildings. Free for anyone to use. Model calibration and scenario tooling.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ================= ONCHAIN ================= -->
 <section id="onchain" class="stage">
   <div class="reveal">
-    <div class="eyebrow">06 · What changes on-chain</div>
+    <div class="eyebrow">07 · What changes on-chain</div>
     <h2 class="section-title">Every step above becomes <span class="accent">a smart contract or a signed receipt.</span></h2>
     <p class="section-lede">The point of putting carbon on-chain is not decentralization for its own sake. It is that every settlement bottleneck above collapses when the credit itself is a token, the registry is a contract, and the retirement is a state transition. Below is the side-by-side, layer by layer.</p>
   </div>
@@ -1451,7 +1765,7 @@
 <!-- ================= FUTURE ================= -->
 <section id="future" class="stage">
   <div class="reveal">
-    <div class="eyebrow">07 · The future stack</div>
+    <div class="eyebrow">08 · The future stack</div>
     <h2 class="section-title">By 2028 carbon settles in <span class="accent">seconds, not seasons.</span></h2>
     <p class="section-lede">The technology to compress the entire lifecycle — from generation to retirement — from months to minutes already exists. It's a matter of assembling the components and getting institutional buyers comfortable with a permissioned-DeFi model. Here is the timeline we are building toward.</p>
   </div>
@@ -1490,10 +1804,101 @@
   </div>
 </section>
 
+<!-- ================= REFERENCES ================= -->
+<section id="references" class="stage">
+  <div class="reveal">
+    <div class="eyebrow">09 · References &amp; further reading</div>
+    <h2 class="section-title">The primary sources <span class="accent">behind every claim on this page.</span></h2>
+    <p class="section-lede">Every emissions factor, market number, price band, and structural claim on this site traces to one of the references below. If you want to fact-check anything or brief a stakeholder in advance of a call, this is the starting shelf.</p>
+  </div>
+
+  <div class="reveal">
+    <div class="reflist">
+      <div class="refrow">
+        <div class="rcat">Primer</div>
+        <div class="rtitle">UNDP Climate Promise — What are carbon markets and why are they important?
+          <span class="rdesc">Clean, jargon-free overview of compliance vs voluntary markets. Best starting read for a non-specialist stakeholder.</span>
+        </div>
+        <a class="rlink" href="https://climatepromise.undp.org/news-and-stories/what-are-carbon-markets-and-why-are-they-important" target="_blank" rel="noopener">climatepromise.undp.org</a>
+      </div>
+      <div class="refrow">
+        <div class="rcat">Primer</div>
+        <div class="rtitle">Investopedia — Carbon Markets Explained
+          <span class="rdesc">Practical explanation of allowances vs credits, spot vs futures, and how compliance/voluntary markets differ from a financial-instrument perspective.</span>
+        </div>
+        <a class="rlink" href="https://www.investopedia.com/carbon-markets-7972128" target="_blank" rel="noopener">investopedia.com</a>
+      </div>
+      <div class="refrow">
+        <div class="rcat">Primer</div>
+        <div class="rtitle">CarbonCredits.com — The Ultimate Guide to Understanding Carbon Credits
+          <span class="rdesc">Industry-facing guide covering methodology types, quality signals, retirement mechanics, and market dynamics. Written for a professional trader/analyst audience.</span>
+        </div>
+        <a class="rlink" href="https://carboncredits.com/the-ultimate-guide-to-understanding-carbon-credits/" target="_blank" rel="noopener">carboncredits.com</a>
+      </div>
+      <div class="refrow">
+        <div class="rcat">Compliance</div>
+        <div class="rtitle">European Commission — EU Emissions Trading System (EU-ETS)
+          <span class="rdesc">Official EU-ETS documentation. Cap-and-trade rules, Phase 4 allocation methodology, MSR reserve dynamics. What every compliance-market claim traces back to for Europe.</span>
+        </div>
+        <a class="rlink" href="https://climate.ec.europa.eu/eu-action/carbon-markets/eu-emissions-trading-system-eu-ets_en" target="_blank" rel="noopener">climate.ec.europa.eu</a>
+      </div>
+      <div class="refrow">
+        <div class="rcat">Framework</div>
+        <div class="rtitle">RMI — Carbon Crediting Data Framework
+          <span class="rdesc">Rocky Mountain Institute's open-source data schema for interoperable carbon-credit metadata. The target spec for any serious registry-bridge implementation.</span>
+        </div>
+        <a class="rlink" href="https://rmi.org/resources/carbon-crediting-data-framework/" target="_blank" rel="noopener">rmi.org/resources</a>
+      </div>
+      <div class="refrow">
+        <div class="rcat">Framework</div>
+        <div class="rtitle">RMI Applications &amp; Tools
+          <span class="rdesc">Portfolio of open RMI tools covering steel, aluminum, cement, hydrogen, transport, and buildings. Model calibration and scenario tooling — free for anyone to use.</span>
+        </div>
+        <a class="rlink" href="https://rmi.org/rmi-applications/" target="_blank" rel="noopener">rmi.org/rmi-applications</a>
+      </div>
+      <div class="refrow">
+        <div class="rcat">Enterprise</div>
+        <div class="rtitle">Nasdaq — ESG Gap Assessment
+          <span class="rdesc">Enterprise ESG data platform. Positioning benchmark for what "institutional-grade ESG analytics" looks like on the buy-side and issuer-side.</span>
+        </div>
+        <a class="rlink" href="https://www.nasdaq.com/solutions/sustainability/esg-gap-assessment" target="_blank" rel="noopener">nasdaq.com/solutions</a>
+      </div>
+      <div class="refrow">
+        <div class="rcat">Enterprise</div>
+        <div class="rtitle">Jaggaer — Carbon Management &amp; CBAM Compliance
+          <span class="rdesc">Supply-chain carbon and EU CBAM (Carbon Border Adjustment Mechanism) compliance tooling. Reference for how enterprise procurement is being wired to carbon data.</span>
+        </div>
+        <a class="rlink" href="https://www.jaggaer.com/lp/carbon_management" target="_blank" rel="noopener">jaggaer.com</a>
+      </div>
+      <div class="refrow">
+        <div class="rcat">Energy</div>
+        <div class="rtitle">Competitive Energy — State-by-state consumer tools
+          <span class="rdesc">Curated links to every US state's Public Utility Commission, deregulation status, energy-choice programs, and consumer-side energy tools. Essential when scoping SREC and REC monetization opportunities per state.</span>
+        </div>
+        <a class="rlink" href="https://competitiveenergy.org/consumer-tools/state-by-state-links/" target="_blank" rel="noopener">competitiveenergy.org</a>
+      </div>
+      <div class="refrow">
+        <div class="rcat">Market data</div>
+        <div class="rtitle">Ecosystem Marketplace — State of the Voluntary Carbon Market 2025
+          <span class="rdesc">Annual authoritative VCM market report — issuance volume, retirement volume, price by category, buyer segmentation. Where our $2.7B voluntary market number comes from.</span>
+        </div>
+        <a class="rlink" href="https://www.ecosystemmarketplace.com/publications" target="_blank" rel="noopener">ecosystemmarketplace.com</a>
+      </div>
+      <div class="refrow">
+        <div class="rcat">Rating research</div>
+        <div class="rtitle">Sylvera + BeZero — public methodology &amp; research
+          <span class="rdesc">Both rating agencies publish substantial public research on rating methodology, project-type risk factors, and observed rating drift. Best signal for how institutional buyers actually evaluate quality.</span>
+        </div>
+        <a class="rlink" href="https://www.sylvera.com/resources" target="_blank" rel="noopener">sylvera.com · bezerocarbon.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ================= WHY UNYKORN ================= -->
 <section class="stage">
   <div class="reveal">
-    <div class="eyebrow">08 · Why UnyKorn</div>
+    <div class="eyebrow">10 · Why UnyKorn</div>
     <h2 class="section-title">Same non-custodial gateway model, <span class="accent">applied to carbon assets.</span></h2>
     <p class="section-lede">UnyKorn LLC operates every product it ships as a non-custodial software gateway. Balance-sheet exposure sits at BitGo Bank &amp; Trust N.A. (OCC-chartered, up to $250M insured), or at partner registries and custodians. That model is why we can carry compliance, custody, and settlement risk without the capital footprint of an actual exchange or bank.</p>
   </div>
