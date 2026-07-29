@@ -1,8 +1,8 @@
 # UnyKorn Carbon
 
-**Portfolio-wide carbon accounting + SREC engine for UnyKorn and LD Capital.**
+**Portfolio-wide carbon accounting + SREC engine for private company portfolios.**
 
-Computes emissions per entity (UnyKorn LLC, UNYKORN 7777, LD Capital, M Helen Hotel, Water Park at Helen, Miguel Alexandrite). Values SRECs from any renewable generation. Recommends an offset portfolio to close the net gap. Emits a JSON report and a browsable HTML dashboard.
+Computes emissions per entity across the whole portfolio — operating companies, holding cos, hospitality SPVs, energy assets. Values SRECs from any renewable generation. Recommends an offset portfolio to close the net gap. Emits a JSON report and a browsable HTML dashboard.
 
 Built on real EPA emissions factors — not marketing numbers.
 

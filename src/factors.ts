@@ -13,7 +13,7 @@
 /** kg CO2e per kWh of electricity by eGRID subregion. */
 export const GRID_KG_CO2_PER_KWH: Record<string, number> = {
   // US eGRID 2023 total output emission rate, lb/MWh -> kg/kWh
-  SRSO: 0.409, // Southeast (GA, AL, part of MS) — M Helen (GA), Water Park (GA)
+  SRSO: 0.409, // Southeast (GA, AL, part of MS)
   SRTV: 0.331, // Tennessee Valley
   RFCE: 0.298, // RFC East (PA, NJ, DE, MD, DC)
   RFCW: 0.418, // RFC West (OH, MI, IN, IL, WI)

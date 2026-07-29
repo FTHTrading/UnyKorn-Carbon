@@ -3,204 +3,887 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>UnyKorn Carbon — Portfolio · FY2026</title>
-<meta name="description" content="UnyKorn Carbon — portfolio carbon accounting, SREC valuation, and offset recommendation for private company portfolios.">
+<title>UnyKorn Carbon — Portfolio Carbon Intelligence & On-Chain Credit Infrastructure</title>
+<meta name="description" content="Real-factor carbon accounting engine for private portfolios. SREC valuation. Offset intelligence. The blockchain substrate for the next digital carbon market.">
+<meta property="og:title" content="UnyKorn Carbon">
+<meta property="og:description" content="Portfolio carbon intelligence for private companies. Real EPA factors, SREC valuation, and the on-chain infrastructure for the next-generation digital carbon market.">
 <style>
   :root {
-    --navy-900: #0B2545;
-    --navy-700: #13315C;
-    --navy-500: #345989;
-    --sky-400:  #8DA9C4;
-    --paper:    #FBFBF9;
-    --cream:    #F5EFE0;
-    --ink:      #1C1C1C;
-    --dim:      #6b6b6b;
-    --line:     #d9d3c2;
-    --leaf:     #2f6b3d;
-    --amber:    #b58900;
-    --serif:    'Georgia', 'Iowan Old Style', 'Times New Roman', serif;
-    --sans:     'Inter', -apple-system, 'Helvetica Neue', Arial, sans-serif;
+    --void:       #050608;
+    --carbon:    #0a0d12;
+    --steel:     #12161d;
+    --mercury:   #c8cdd4;
+    --chrome:    #e8ebef;
+    --platinum:  #f5f6f8;
+    --dim:       #6b7280;
+    --line:      rgba(200,205,212,0.10);
+    --line-hi:   rgba(200,205,212,0.28);
+    --glow-cyan: #6ce3d0;
+    --glow-blue: #7aa5ff;
+    --glow-warm: #f3c56d;
+    --glow-leaf: #9dd67a;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+    --serif: 'Georgia', 'Iowan Old Style', 'Times New Roman', serif;
+    --mono: 'JetBrains Mono', 'SFMono-Regular', Menlo, Consolas, monospace;
   }
-  * { box-sizing: border-box; }
-  html, body { margin:0; padding:0; background: var(--cream); color: var(--ink); font-family: var(--serif); font-size: 16px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
-  .wrap { max-width: 1100px; margin: 0 auto; padding: 32px 24px 80px; }
 
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--void);
+    color: var(--chrome);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "ss01", "ss02", "cv11";
+  }
+
+  /* ========== ANIMATED BACKGROUND ORBS ========== */
+  .bg-orbs {
+    position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
+  }
+  .orb {
+    position: absolute; border-radius: 50%;
+    filter: blur(120px); opacity: 0.35; mix-blend-mode: screen;
+    animation: drift 22s ease-in-out infinite;
+  }
+  .orb-a { width: 620px; height: 620px; top: -180px; left: -160px; background: radial-gradient(circle, #4ea1ff 0%, transparent 60%); animation-delay: 0s; }
+  .orb-b { width: 520px; height: 520px; top: 40%; right: -120px; background: radial-gradient(circle, #6ce3d0 0%, transparent 60%); animation-delay: -8s; }
+  .orb-c { width: 640px; height: 640px; bottom: -220px; left: 20%; background: radial-gradient(circle, #9d7dff 0%, transparent 60%); animation-delay: -14s; }
+  @keyframes drift {
+    0%,100% { transform: translate3d(0,0,0) scale(1); }
+    33%     { transform: translate3d(80px,-40px,0) scale(1.08); }
+    66%     { transform: translate3d(-60px,60px,0) scale(0.95); }
+  }
+  .grain {
+    position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background-image: radial-gradient(rgba(255,255,255,0.015) 1px, transparent 1px);
+    background-size: 3px 3px;
+    opacity: 0.6;
+  }
+
+  /* ========== NAV ========== */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 40;
+    background: rgba(5,6,8,0.72);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    max-width: 1240px; margin: 0 auto; padding: 14px 28px;
+    display: flex; align-items: center; justify-content: space-between; gap: 40px;
+  }
+  .brand {
+    font-family: var(--sans); font-size: 15px; font-weight: 700; letter-spacing: -0.01em;
+    display: flex; align-items: center; gap: 10px; color: var(--platinum);
+  }
+  .brand .dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #fff, var(--glow-cyan) 40%, #2a7c72 100%);
+    box-shadow: 0 0 12px rgba(108,227,208,0.6);
+  }
+  .nav-links {
+    display: flex; gap: 28px; font-size: 13px; color: var(--mercury);
+  }
+  .nav-links a { color: var(--mercury); text-decoration: none; transition: color 0.18s; }
+  .nav-links a:hover { color: var(--platinum); }
+  .nav-cta {
+    background: linear-gradient(135deg, var(--chrome), var(--mercury));
+    color: var(--void); padding: 8px 16px; border-radius: 4px;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.02em; text-decoration: none;
+    transition: transform 0.15s, box-shadow 0.15s;
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(200,205,212,0.25); }
+  @media (max-width: 780px) { .nav-links { display: none; } }
+
+  /* ========== HERO ========== */
   .hero {
-    background: var(--paper); border: 1px solid var(--line); border-top: 4px solid var(--navy-700);
-    padding: 36px 40px; margin-bottom: 28px;
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 120px 28px 80px;
+    max-width: 1240px; margin: 0 auto;
+    position: relative;
   }
-  .brand { font-family: var(--sans); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--navy-500); margin-bottom: 12px; }
-  .hero h1 { font-family: var(--serif); font-size: 40px; line-height: 1.08; letter-spacing: -0.01em; color: var(--navy-900); margin: 0 0 8px; }
-  .hero .tag { font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--navy-500); margin: 0; }
-  .hero .meta { margin-top: 18px; font-family: var(--sans); font-size: 12px; color: var(--dim); letter-spacing: 0.06em; }
+  .hero .kicker {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 14px;
+    border: 1px solid var(--line-hi);
+    background: rgba(255,255,255,0.02);
+    backdrop-filter: blur(10px);
+    border-radius: 100px;
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--mercury);
+    margin-bottom: 32px;
+    align-self: flex-start;
+  }
+  .hero .kicker::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--glow-leaf);
+    box-shadow: 0 0 10px var(--glow-leaf);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse { 50% { opacity: 0.35; } }
 
-  .section-title { font-family: var(--sans); font-size: 12px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--navy-700); border-left: 4px solid var(--sky-400); padding-left: 12px; margin: 36px 0 16px; }
+  .hero h1 {
+    font-size: clamp(48px, 8vw, 112px);
+    line-height: 0.96;
+    letter-spacing: -0.04em;
+    font-weight: 800;
+    margin-bottom: 28px;
+    background: linear-gradient(180deg, #ffffff 0%, #d4d8de 40%, #8a8f96 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 8px 40px rgba(200,205,212,0.10));
+  }
+  .hero h1 .accent {
+    background: linear-gradient(120deg, #6ce3d0 0%, #7aa5ff 45%, #b294ff 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-style: italic;
+    font-weight: 700;
+  }
+  .hero p.lede {
+    font-size: clamp(18px, 2.1vw, 22px);
+    line-height: 1.4;
+    color: var(--mercury);
+    max-width: 780px;
+    margin-bottom: 44px;
+    font-weight: 400;
+  }
+  .hero-ctas {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    margin-bottom: 60px;
+  }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 24px; border-radius: 6px;
+    font-size: 14px; font-weight: 600; letter-spacing: 0.01em;
+    text-decoration: none; cursor: pointer;
+    transition: all 0.18s ease;
+    border: 1px solid transparent;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #e8ebef 0%, #c8cdd4 100%);
+    color: var(--void);
+    border-color: rgba(255,255,255,0.2);
+    box-shadow: 0 4px 20px rgba(200,205,212,0.15);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(200,205,212,0.30); }
+  .btn-ghost {
+    background: rgba(255,255,255,0.03);
+    color: var(--chrome);
+    border-color: var(--line-hi);
+    backdrop-filter: blur(10px);
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.06); border-color: rgba(200,205,212,0.5); }
+  .btn .arrow { display: inline-block; transition: transform 0.2s; }
+  .btn:hover .arrow { transform: translateX(4px); }
 
-  .card { background: var(--paper); border: 1px solid var(--line); padding: 28px 30px; margin-bottom: 20px; }
-  .card h2 { font-family: var(--serif); font-size: 22px; color: var(--navy-900); margin: 0 0 12px; }
+  .hero-metrics {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    overflow: hidden;
+    backdrop-filter: blur(20px);
+  }
+  .hero-metric {
+    background: rgba(10,13,18,0.72);
+    padding: 22px 24px;
+  }
+  .hero-metric .label {
+    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--dim); margin-bottom: 8px;
+  }
+  .hero-metric .value {
+    font-size: 30px; font-weight: 700; letter-spacing: -0.02em; line-height: 1;
+    color: var(--platinum);
+    font-variant-numeric: tabular-nums;
+  }
+  .hero-metric .value.leaf { color: var(--glow-leaf); }
+  .hero-metric .sub {
+    font-size: 12px; color: var(--dim); margin-top: 6px;
+  }
 
-  .kpi-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 14px; margin-bottom: 8px; }
-  .kpi { background: var(--paper); border: 1px solid var(--line); border-left: 3px solid var(--navy-700); padding: 20px 22px; }
-  .kpi .label { font-family: var(--sans); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--navy-500); margin: 0 0 6px; }
-  .kpi .value { font-family: var(--serif); font-size: 30px; color: var(--navy-900); font-weight: 700; margin: 0; line-height: 1.1; }
-  .kpi .sub { font-family: var(--serif); font-size: 12px; color: var(--dim); margin: 4px 0 0; font-style: italic; }
-  .kpi.leaf { border-left-color: var(--leaf); }
-  .kpi.leaf .value { color: var(--leaf); }
-  .kpi.amber { border-left-color: var(--amber); }
-  .kpi.amber .value { color: var(--amber); }
+  /* ========== SECTION ========== */
+  section.stage {
+    max-width: 1240px; margin: 0 auto;
+    padding: 90px 28px;
+  }
+  .eyebrow {
+    font-size: 11px; letter-spacing: 0.20em; text-transform: uppercase;
+    color: var(--glow-cyan); margin-bottom: 16px;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--glow-cyan); }
+  h2.section-title {
+    font-size: clamp(34px, 4.5vw, 56px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-weight: 800;
+    margin-bottom: 24px;
+    color: var(--platinum);
+    max-width: 900px;
+  }
+  h2.section-title .accent {
+    background: linear-gradient(120deg, #6ce3d0 0%, #7aa5ff 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-style: italic;
+  }
+  .section-lede {
+    font-size: 18px; line-height: 1.55; color: var(--mercury);
+    max-width: 780px; margin-bottom: 56px;
+  }
 
-  table { width: 100%; border-collapse: collapse; font-family: var(--serif); font-size: 14px; margin: 8px 0; }
-  thead th { text-align: left; font-family: var(--sans); font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--paper); background: var(--navy-700); padding: 10px 12px; font-weight: 600; }
-  thead th.num { text-align: right; }
-  tbody td { padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
-  tbody td.num { text-align: right; font-variant-numeric: tabular-nums; }
-  tbody tr:nth-child(even) { background: #fafaf7; }
-  tbody td.name { font-weight: 600; color: var(--navy-900); }
-  tbody td.dim { color: var(--dim); font-size: 12px; }
+  /* ========== GLASS CARDS ========== */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 18px;
+  }
+  .card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+    border: 1px solid var(--line-hi);
+    border-radius: 10px;
+    padding: 30px 28px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: all 0.24s ease;
+    position: relative; overflow: hidden;
+  }
+  .card::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(600px circle at var(--mx,50%) var(--my,0%), rgba(108,227,208,0.08), transparent 40%);
+    pointer-events: none; transition: opacity 0.24s; opacity: 0;
+  }
+  .card:hover::before { opacity: 1; }
+  .card:hover { border-color: rgba(200,205,212,0.35); transform: translateY(-2px); }
 
-  .cat-bars td { padding: 6px 10px; border-bottom: 1px solid var(--line); }
-  .cat-bars .barcell { min-width: 200px; }
-  .bar { height: 10px; background: var(--sky-400); display: inline-block; vertical-align: middle; border-radius: 2px; }
+  .card .cnum {
+    font-family: var(--mono); font-size: 12px; color: var(--dim);
+    margin-bottom: 14px; letter-spacing: 0.06em;
+  }
+  .card h3 {
+    font-size: 20px; font-weight: 700; letter-spacing: -0.01em; color: var(--platinum);
+    margin-bottom: 12px; line-height: 1.25;
+  }
+  .card p {
+    font-size: 14px; color: var(--mercury); line-height: 1.55;
+    margin-bottom: 12px;
+  }
+  .card ul { list-style: none; padding: 0; margin: 12px 0 0; }
+  .card ul li {
+    font-size: 13.5px; color: var(--mercury); padding-left: 22px; margin-bottom: 8px;
+    position: relative;
+  }
+  .card ul li::before {
+    content: '+'; position: absolute; left: 0;
+    color: var(--glow-cyan); font-weight: 700; font-family: var(--mono);
+  }
+  .card ul.dash li::before { content: '—'; color: var(--dim); }
 
-  footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--line); text-align: center; font-family: var(--serif); font-size: 12px; color: var(--dim); font-style: italic; line-height: 1.7; }
-  a { color: var(--navy-700); }
-  @media (max-width: 640px) { .hero h1 { font-size: 30px; } .card { padding: 22px; } }
+  /* ========== SPLIT — TODAY vs ONCHAIN ========== */
+  .split {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    align-items: stretch;
+  }
+  @media (max-width: 900px) { .split { grid-template-columns: 1fr; } }
+
+  .col {
+    padding: 36px 34px;
+    border-radius: 12px;
+    border: 1px solid var(--line-hi);
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.005));
+  }
+  .col.today .col-tag { color: #f3a06d; }
+  .col.chain .col-tag { color: var(--glow-cyan); }
+  .col-tag {
+    font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase;
+    display: inline-flex; align-items: center; gap: 8px; margin-bottom: 14px;
+    font-family: var(--mono);
+  }
+  .col-tag::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor;
+    box-shadow: 0 0 10px currentColor;
+  }
+  .col h3 {
+    font-size: 26px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 20px;
+    color: var(--platinum);
+  }
+  .col dl { margin-top: 20px; }
+  .col dt {
+    font-size: 13px; color: var(--platinum); font-weight: 600;
+    margin-top: 16px; margin-bottom: 4px;
+  }
+  .col dd {
+    font-size: 13.5px; color: var(--mercury); line-height: 1.55;
+  }
+
+  /* ========== TERMINAL CARD ========== */
+  .terminal {
+    background: linear-gradient(180deg, #0a0d12, #05070a);
+    border: 1px solid var(--line-hi);
+    border-radius: 10px;
+    overflow: hidden;
+    font-family: var(--mono);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    margin-top: 28px;
+  }
+  .term-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 12px 16px;
+    background: rgba(255,255,255,0.03);
+    border-bottom: 1px solid var(--line);
+  }
+  .term-bar .btn-dot { width: 12px; height: 12px; border-radius: 50%; }
+  .term-bar .btn-dot.r { background: #ff5f57; }
+  .term-bar .btn-dot.y { background: #febc2e; }
+  .term-bar .btn-dot.g { background: #28c840; }
+  .term-bar .term-title {
+    font-size: 11px; color: var(--dim); margin-left: 16px; letter-spacing: 0.05em;
+  }
+  .term-body {
+    padding: 24px 26px;
+    font-size: 13px; line-height: 1.7;
+    color: var(--chrome);
+    overflow-x: auto;
+  }
+  .term-body .prompt { color: var(--glow-cyan); user-select: none; }
+  .term-body .cmt    { color: var(--dim); }
+  .term-body .out    { color: var(--mercury); }
+  .term-body .num    { color: var(--glow-warm); }
+  .term-body .leaf   { color: var(--glow-leaf); }
+
+  /* ========== TIMELINE ========== */
+  .timeline {
+    position: relative;
+    margin-top: 40px;
+    padding-left: 40px;
+  }
+  .timeline::before {
+    content: ''; position: absolute; left: 12px; top: 12px; bottom: 12px; width: 1px;
+    background: linear-gradient(180deg, var(--glow-cyan), transparent);
+  }
+  .tl-item { position: relative; padding-bottom: 40px; }
+  .tl-item::before {
+    content: ''; position: absolute; left: -32px; top: 8px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #fff, var(--glow-cyan) 60%, #2a7c72);
+    box-shadow: 0 0 14px rgba(108,227,208,0.6);
+  }
+  .tl-year {
+    font-family: var(--mono); font-size: 12px; color: var(--glow-cyan);
+    letter-spacing: 0.12em; margin-bottom: 6px;
+  }
+  .tl-title {
+    font-size: 20px; font-weight: 700; color: var(--platinum); margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  .tl-body { font-size: 14.5px; color: var(--mercury); line-height: 1.6; }
+
+  /* ========== STACK DIAGRAM ========== */
+  .stack {
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.005));
+    border: 1px solid var(--line-hi);
+    border-radius: 12px;
+    padding: 28px;
+    margin-top: 32px;
+  }
+  .layer {
+    padding: 18px 22px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    background: rgba(255,255,255,0.02);
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    transition: all 0.2s;
+  }
+  .layer:hover { border-color: var(--line-hi); transform: translateX(4px); }
+  .layer .lname {
+    font-family: var(--mono); font-size: 11px; color: var(--dim);
+    letter-spacing: 0.1em; text-transform: uppercase; min-width: 100px;
+  }
+  .layer .ltitle {
+    font-size: 15px; font-weight: 600; color: var(--platinum); flex: 1;
+  }
+  .layer .lstack {
+    font-family: var(--mono); font-size: 12px; color: var(--mercury);
+    text-align: right;
+  }
+  @media (max-width: 700px) {
+    .layer { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .layer .lstack { text-align: left; }
+  }
+
+  /* ========== CTA BLOCK ========== */
+  .cta-block {
+    margin-top: 60px;
+    padding: 60px 40px;
+    border: 1px solid var(--line-hi);
+    border-radius: 16px;
+    background:
+      radial-gradient(1000px circle at 80% 20%, rgba(108,227,208,0.10), transparent 40%),
+      radial-gradient(800px circle at 20% 80%, rgba(122,165,255,0.10), transparent 40%),
+      linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.005));
+    text-align: center;
+  }
+  .cta-block h2 {
+    font-size: clamp(30px, 4.5vw, 46px); font-weight: 800; letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: var(--platinum); margin-bottom: 16px;
+  }
+  .cta-block p { font-size: 17px; color: var(--mercury); margin-bottom: 32px; max-width: 640px; margin-left: auto; margin-right: auto; }
+
+  /* ========== FOOTER ========== */
+  footer {
+    border-top: 1px solid var(--line);
+    padding: 40px 28px 60px;
+    text-align: center;
+    color: var(--dim);
+    font-size: 12.5px;
+    line-height: 1.7;
+  }
+  footer a { color: var(--mercury); text-decoration: none; }
+  footer a:hover { color: var(--platinum); }
+  footer .foot-links { margin-bottom: 20px; }
+  footer .foot-links a { margin: 0 12px; }
+  footer .fine {
+    max-width: 780px; margin: 20px auto 0;
+    font-size: 11px; font-style: italic; color: var(--dim);
+  }
+
+  /* ========== FADE-IN ========== */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+
+  /* ========== UTILITY ========== */
+  .mono { font-family: var(--mono); font-size: 0.92em; color: var(--glow-warm); }
+  .fine-print { font-size: 12px; color: var(--dim); margin-top: 20px; font-style: italic; }
 </style>
 </head>
 <body>
-<div class="wrap">
 
-<section class="hero">
-  <div class="brand">UnyKorn LLC · Portfolio Sustainability Report</div>
-  <h1>UnyKorn Carbon</h1>
-  <p class="tag">Portfolio carbon footprint, SREC value, and offset gap for fiscal year 2026.</p>
-  <div class="meta">Generated <span id="gen-date">2026-07-29</span> · UnyKorn LLC · Wyoming · EIN 42-3536633 · Mode: Example data</div>
-</section>
-
-<div class="section-title">Portfolio at a glance · FY2026</div>
-<div class="kpi-row" id="kpis"></div>
-
-<div class="section-title">Emissions by entity</div>
-<section class="card">
-  <table id="entities-table">
-    <thead>
-      <tr>
-        <th>Entity</th>
-        <th class="num">Gross tCO2e</th>
-        <th class="num">SREC-avoided</th>
-        <th class="num">Net gap</th>
-        <th class="num">SREC value (USD)</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-</section>
-
-<div class="section-title">Emissions by category (portfolio total)</div>
-<section class="card">
-  <table class="cat-bars" id="cat-table">
-    <tbody></tbody>
-  </table>
-</section>
-
-<div class="section-title">Recommended offset portfolio</div>
-<section class="card">
-  <p style="margin:0 0 12px; font-size:14px; color: var(--dim);">Default mix: 40% forestry · 30% soil carbon · 20% biochar · 10% direct air capture. Ranges reflect current voluntary-market pricing bands.</p>
-  <table id="offset-table">
-    <thead>
-      <tr>
-        <th>Category</th>
-        <th class="num">Weight</th>
-        <th class="num">tCO2e</th>
-        <th class="num">Cost low</th>
-        <th class="num">Cost high</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-</section>
-
-<footer>
-  UnyKorn LLC · <a href="mailto:kevan@ldrcllc.com">kevan@ldrcllc.com</a><br>
-  Emissions factors from EPA eGRID 2023 + EPA GHG Emission Factors Hub (April 2024). SREC prices are quarterly indicative benchmarks; override in data/srec-markets.json for authoritative values.
-</footer>
-
+<div class="grain"></div>
+<div class="bg-orbs">
+  <div class="orb orb-a"></div>
+  <div class="orb orb-b"></div>
+  <div class="orb orb-c"></div>
 </div>
 
+<!-- ================= NAV ================= -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="dot"></span> UnyKorn Carbon</div>
+    <div class="nav-links">
+      <a href="#engine">Engine</a>
+      <a href="#market">Market Today</a>
+      <a href="#onchain">On-Chain</a>
+      <a href="#future">The Future Stack</a>
+      <a href="./dashboard.html">Live Dashboard</a>
+    </div>
+    <a class="nav-cta" href="mailto:kevan.burns@fthtrading.com?subject=UnyKorn%20Carbon">Contact</a>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="kicker">v0.1 · Portfolio engine live · Blockchain layer roadmapped</div>
+
+  <h1>Carbon accounting<br>with <span class="accent">liquid-metal</span> settlement.</h1>
+
+  <p class="lede">
+    A real-factor emissions engine for private portfolios. A voluntary and compliance SREC valuation layer. And the on-chain infrastructure to turn every ton of avoided carbon into a cryptographically-provable, tradeable, retireable digital asset.
+  </p>
+
+  <div class="hero-ctas">
+    <a class="btn btn-primary" href="./dashboard.html">See the live dashboard <span class="arrow">→</span></a>
+    <a class="btn btn-ghost" href="https://github.com/FTHTrading/UnyKorn-Carbon" target="_blank">View source <span class="arrow">↗</span></a>
+  </div>
+
+  <div class="hero-metrics">
+    <div class="hero-metric">
+      <div class="label">Example gross</div>
+      <div class="value">2,065</div>
+      <div class="sub">tCO2e portfolio-wide</div>
+    </div>
+    <div class="hero-metric">
+      <div class="label">SREC-avoided</div>
+      <div class="value leaf">215</div>
+      <div class="sub">tCO2e from renewable gen</div>
+    </div>
+    <div class="hero-metric">
+      <div class="label">Net offset gap</div>
+      <div class="value">1,850</div>
+      <div class="sub">tCO2e to retire</div>
+    </div>
+    <div class="hero-metric">
+      <div class="label">Offset cost band</div>
+      <div class="value">$132K</div>
+      <div class="sub">low — high: $304K</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ENGINE ================= -->
+<section id="engine" class="stage">
+  <div class="reveal">
+    <div class="eyebrow">01 · What was built</div>
+    <h2 class="section-title">A production accounting engine, <span class="accent">not a marketing calculator.</span></h2>
+    <p class="section-lede">Emission factors come from EPA eGRID 2023 (electricity, by subregion), the EPA GHG Emission Factors Hub (fuel + gas), DEFRA 2024 (aviation), and the Cornell Hotel Sustainability Benchmarking Index. Offset price bands come from Ecosystem Marketplace's State of the VCM 2025, Trove Research, and MSCI Carbon Markets. SREC prices come from SRECTrade, Karbone, and PJM-GATS. Every constant has a source. Nothing is estimated in-code.</p>
+  </div>
+
+  <div class="card-grid reveal">
+    <div class="card">
+      <div class="cnum">// engine</div>
+      <h3>Multi-scope footprint</h3>
+      <p>Compute Scope 1 (direct fuel + process), Scope 2 (grid electricity + cloud compute proxied through grid factor), and Scope 3 (business travel + hotel + headcount overhead) for any entity.</p>
+      <ul>
+        <li>Utility bills — kWh + therms</li>
+        <li>Cloud compute — $/mo → kWh proxy</li>
+        <li>Fleet + travel — gallons, miles, nights</li>
+        <li>Direct process — hospitality kitchens, laundry, kilns</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="cnum">// srec</div>
+      <h3>Real-market SREC valuation</h3>
+      <p>Every MWh of renewable generation becomes a REC. State-by-state price tables let you size the delta between voluntary markets ($4–$8) and compliance markets ($42–$335) — the actual monetization opportunity.</p>
+      <ul>
+        <li>eGRID-region avoided emissions</li>
+        <li>State price bands: NJ $210, MA $285, DC $335</li>
+        <li>Vintage tracking, already-sold ledger</li>
+        <li>Grid factor conversion built in</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="cnum">// offsets</div>
+      <h3>Portfolio-optimized offset mix</h3>
+      <p>Given a net emissions gap, recommend an offset portfolio using the current voluntary-market price bands per credit category. Default weighting favors durable removals; every mix is editable.</p>
+      <ul>
+        <li>Forestry, soil carbon, biochar</li>
+        <li>Direct air capture, methane, RE</li>
+        <li>Low + high cost bands per category</li>
+        <li>Programmable target-mix override</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="cnum">// data</div>
+      <h3>Private / public data split</h3>
+      <p>Real portfolio data stays local (gitignored). A parallel <span class="mono">*.example.json</span> lineage powers the public dashboard so the engine can be demonstrated without leaking real utility bills or entity names.</p>
+      <ul>
+        <li>data/entities.json — local only</li>
+        <li>data/*.example.json — public seed</li>
+        <li>dashboard/local.html — private render</li>
+        <li>docs/dashboard.html — public demo</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="cnum">// rollup</div>
+      <h3>Portfolio-level intelligence</h3>
+      <p>Roll every entity into a single balance sheet: gross emissions, SREC-avoided, net offset gap, cost bands, monetization value. Group by SPV, jurisdiction, or asset class. Export as JSON for LP reports.</p>
+      <ul>
+        <li>Per-entity + portfolio rollups</li>
+        <li>Per-category emissions bars</li>
+        <li>Recommended offset portfolio</li>
+        <li>JSON + HTML dashboard outputs</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="cnum">// cli</div>
+      <h3>One-line operator experience</h3>
+      <p>Five commands. No cloud dependency. Runs on any machine with Node 20+.</p>
+      <ul class="dash">
+        <li>npm run calc</li>
+        <li>npm run srec</li>
+        <li>npm run offsets</li>
+        <li>npm run report</li>
+        <li>npm run dashboard</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="terminal reveal">
+    <div class="term-bar">
+      <span class="btn-dot r"></span>
+      <span class="btn-dot y"></span>
+      <span class="btn-dot g"></span>
+      <span class="term-title">carbon-cli · example portfolio · FY2026</span>
+    </div>
+    <div class="term-body">
+<span class="prompt">$</span> npm run calc
+<span class="cmt">
+  UnyKorn Carbon — Emissions by Entity · FY2026</span>
+<span class="out">
+  acme-holdings              ░░░░░░░░░░░░░░░░░░░░░░░░ <span class="num">24.8</span> tCO2e
+  acme-parent-inc            ░░░░░░░░░░░░░░░░░░░░░░░░ <span class="num">0.0</span> tCO2e
+  acme-lending               █░░░░░░░░░░░░░░░░░░░░░░░ <span class="num">60.4</span> tCO2e
+  example-hotel-se           ██████████████░░░░░░░░░░ <span class="num">739.9</span> tCO2e
+  example-waterpark          ████████████████████████ <span class="num">1,239.4</span> tCO2e
+  example-vault-spv          ░░░░░░░░░░░░░░░░░░░░░░░░ <span class="num">0.3</span> tCO2e
+
+  Portfolio total: <span class="num">2,064.9</span> tCO2e</span>
+
+<span class="prompt">$</span> npm run srec
+<span class="out">  example-hotel-se       145 SRECs @ $8  =  $1,160   [GA]
+  example-waterpark      380 SRECs @ $8  =  $3,040   [GA]
+
+  Total: 525 SRECs → <span class="leaf">$4,200</span>  <span class="cmt">// voluntary market</span>
+  Same 525 SRECs in NJ:                  <span class="leaf">$110,250</span>   <span class="cmt">// compliance market</span>
+</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MARKET TODAY ================= -->
+<section id="market" class="stage">
+  <div class="reveal">
+    <div class="eyebrow">02 · The digital carbon credit market — today</div>
+    <h2 class="section-title">A $2B market with the <span class="accent">plumbing of 1998.</span></h2>
+    <p class="section-lede">The voluntary carbon market cleared roughly $2.7B in transactions in 2024. Compliance markets on top of that added another $900B in traded value across EU-ETS, California C&amp;T, RGGI, and Chinese pilots. But the settlement rails underneath — how a credit is registered, sold, transferred, and retired — still run on siloed PDF-and-spreadsheet infrastructure. That is why every step below is a real bottleneck, not a hypothetical one.</p>
+  </div>
+
+  <div class="card-grid reveal">
+    <div class="card">
+      <div class="cnum">// step 01</div>
+      <h3>Project developer books credits</h3>
+      <p>A forestry, biochar, or DAC operator submits a project design document to a registry (Verra, Gold Standard, Puro.earth, CAR). Third-party verifiers audit. Registry issues credits with a serial number and vintage year. Turnaround: 6–24 months per issuance.</p>
+    </div>
+    <div class="card">
+      <div class="cnum">// step 02</div>
+      <h3>Sold OTC through a broker</h3>
+      <p>Buyer works with a broker (Xpansiv, ClearBlue, South Pole, Anew) to source. Every credit is priced per-project, per-vintage, per-methodology. There's no single order book. Bid/ask spreads on the same underlying can differ 3–5× across brokers.</p>
+    </div>
+    <div class="card">
+      <div class="cnum">// step 03</div>
+      <h3>Custody stays at the registry</h3>
+      <p>Verra and Gold Standard hold the credit in a private account. Ownership transfer means the registry re-assigns the serial to a new account. No wallet. No native transfer. Cross-registry moves usually cost the credit its provenance chain.</p>
+    </div>
+    <div class="card">
+      <div class="cnum">// step 04</div>
+      <h3>Retirement is a form field</h3>
+      <p>To claim the offset, buyer's registry account marks the serial "retired" with a reason string. That string ends up in an ESG report as a PDF attachment. There is no independent, machine-verifiable receipt.</p>
+    </div>
+    <div class="card">
+      <div class="cnum">// step 05</div>
+      <h3>Double-counting risk is systemic</h3>
+      <p>Same reduction claimed by the host country's NDC and separately sold as a voluntary credit. Or the same MWh of clean generation claimed both as an SREC and as a Scope 2 reduction. Corresponding Adjustment rules exist on paper. Enforcement is a mailing list.</p>
+    </div>
+    <div class="card">
+      <div class="cnum">// step 06</div>
+      <h3>Quality signals are anecdote-driven</h3>
+      <p>Which projects are additional? Which forestry pool burned in a wildfire and quietly stopped delivering avoided emissions? Buyers rely on secondary raters (Sylvera, BeZero, Renoster). None have on-chain records. Ratings can revise years after purchase, silently.</p>
+    </div>
+  </div>
+
+  <p class="fine-print reveal">The people trying to solve this today — Toucan, KlimaDAO, Moss, Flowcarbon, Regen, Nori — have each shown that at least one of these steps yields to a public ledger. None have yet knit them together into an end-to-end market with the compliance layer required for institutional capital. That is the opening.</p>
+</section>
+
+<!-- ================= ONCHAIN ================= -->
+<section id="onchain" class="stage">
+  <div class="reveal">
+    <div class="eyebrow">03 · What changes on-chain</div>
+    <h2 class="section-title">Every step above becomes <span class="accent">a smart contract or a signed receipt.</span></h2>
+    <p class="section-lede">The point of putting carbon on-chain is not decentralization for its own sake. It is that every settlement bottleneck above collapses when the credit itself is a token, the registry is a contract, and the retirement is a state transition. Below is the side-by-side, layer by layer.</p>
+  </div>
+
+  <div class="split reveal">
+    <div class="col today">
+      <div class="col-tag">Today</div>
+      <h3>Six systems talking through PDFs</h3>
+      <dl>
+        <dt>Issuance</dt>
+        <dd>Registry mints a serial number in a private database. Buyer receives a certificate.</dd>
+        <dt>Transfer</dt>
+        <dd>Registry-mediated re-assignment. Only within one registry. Cross-registry = provenance loss.</dd>
+        <dt>Retirement</dt>
+        <dd>Form field. String reason. PDF attachment. No cryptographic receipt.</dd>
+        <dt>Price discovery</dt>
+        <dd>Broker-mediated. Fragmented across marketplaces. Same credit, different prices.</dd>
+        <dt>Provenance</dt>
+        <dd>Trust the registry. If the registry's DB corrupts or is disputed, provenance is legally unstable.</dd>
+        <dt>Time to settle</dt>
+        <dd>Days to weeks for retirement confirmation. Months for cross-registry transfers.</dd>
+      </dl>
+    </div>
+
+    <div class="col chain">
+      <div class="col-tag">On-Chain</div>
+      <h3>One shared ledger, six programmable steps</h3>
+      <dl>
+        <dt>Issuance — ERC-3643 permissioned token</dt>
+        <dd>Registry oracle mints an on-chain token with vintage, methodology, project ID baked in. Whitelisted verifiers required.</dd>
+        <dt>Transfer — wallet-native, jurisdiction-gated</dt>
+        <dd>Any KYC'd wallet can hold. Transfer restrictions enforce sanction, jurisdiction, and buyer-eligibility rules at the contract level.</dd>
+        <dt>Retirement — burn with signed receipt</dt>
+        <dd>Buyer calls <span class="mono">retire()</span>. Token burned. LPS-1 provenance receipt anchored to Polygon 137 + Bitcoin OTS. Uncounterfeitable.</dd>
+        <dt>Price discovery — AMM + on-chain order book</dt>
+        <dd>Every credit type is a market. Real-time NBBO. Arbitrage arbitrages spreads shut. Vintages, methodologies each become tick-tradeable.</dd>
+        <dt>Provenance — public + immutable</dt>
+        <dd>Every mint, transfer, and retirement is a signed transaction. Audit trail is the chain itself. Registry disputes are resolved by consensus.</dd>
+        <dt>Time to settle — seconds</dt>
+        <dd>Retirement confirmations are block-confirmations. Cross-registry becomes cross-chain bridge, not a manual reconciliation.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="reveal" style="margin-top:44px;">
+    <h3 style="font-size: 26px; font-weight: 700; color: var(--platinum); letter-spacing: -0.02em; margin-bottom: 20px;">The stack we would ship</h3>
+    <div class="stack">
+      <div class="layer">
+        <div class="lname">L4 · Client</div>
+        <div class="ltitle">Portfolio dashboard + Carbon Copilot (AI)</div>
+        <div class="lstack">Next.js · Anthropic Claude · UnyKorn Carbon</div>
+      </div>
+      <div class="layer">
+        <div class="lname">L3 · Market</div>
+        <div class="ltitle">Order book / AMM · retirement queue · SREC secondary</div>
+        <div class="lstack">Uniswap v4 hooks · custom EVM · Solana Anchor</div>
+      </div>
+      <div class="layer">
+        <div class="lname">L2 · Assets</div>
+        <div class="ltitle">Carbon credits + SRECs as ERC-3643 permissioned tokens</div>
+        <div class="lstack">ERC-3643 · Token-2022 · XRPL MPT · custom vintages</div>
+      </div>
+      <div class="layer">
+        <div class="lname">L1 · Provenance</div>
+        <div class="ltitle">LPS-1 anchored receipts · dual-chain notarization</div>
+        <div class="lstack">Polygon 137 · Bitcoin OpenTimestamps · Stellar</div>
+      </div>
+      <div class="layer">
+        <div class="lname">L0 · Custody</div>
+        <div class="ltitle">Non-custodial wallets · BitGo Bank &amp; Trust N.A. reserve</div>
+        <div class="lstack">BitGo Enterprise · Fireblocks · Anchorage</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FUTURE ================= -->
+<section id="future" class="stage">
+  <div class="reveal">
+    <div class="eyebrow">04 · The future stack</div>
+    <h2 class="section-title">By 2028 carbon settles in <span class="accent">seconds, not seasons.</span></h2>
+    <p class="section-lede">The technology to compress the entire lifecycle — from generation to retirement — from months to minutes already exists. It's a matter of assembling the components and getting institutional buyers comfortable with a permissioned-DeFi model. Here is the timeline we are building toward.</p>
+  </div>
+
+  <div class="timeline reveal">
+    <div class="tl-item">
+      <div class="tl-year">2026 — v0.1 today</div>
+      <div class="tl-title">Off-chain portfolio intelligence</div>
+      <div class="tl-body">Emissions engine + SREC valuation + offset recommendation running on real EPA factors. LPs and lenders see defensible carbon disclosures. Owners see the compliance-market delta on their generation assets. No token yet.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2027 Q1 — v0.4</div>
+      <div class="tl-title">On-chain retirement receipts (LPS-1)</div>
+      <div class="tl-body">When we purchase and retire offsets, the retirement produces a Merkle-anchored receipt on Polygon 137 + Bitcoin OTS. Any auditor can independently verify a retirement claim without a registry API call. The first primitive that makes carbon disclosures machine-verifiable.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2027 Q3</div>
+      <div class="tl-title">Permissioned credit tokens (ERC-3643)</div>
+      <div class="tl-body">Partnership with one registry (target: Puro.earth) to co-issue ERC-3643 credits. Whitelisted verifiers. Jurisdictional transfer restrictions. Sanctions screening at contract level. First institutional-grade tokenized voluntary carbon.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2028 Q1</div>
+      <div class="tl-title">Autonomous SREC minting from IoT telemetry</div>
+      <div class="tl-body">Energy asset owners install a signed telemetry beacon. Every 1 MWh of generation triggers an on-chain SREC mint. State-registry integration replaces PJM-GATS latency with block finality. Owners get RECs sellable the same hour they were generated.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2028 Q3</div>
+      <div class="tl-title">Satellite + DePIN oracle networks</div>
+      <div class="tl-body">Forestry and soil-carbon projects get remotely verified via Planet Labs / Chloris Geospatial / MRV data. On-chain oracles feed additionality and permanence signals directly into the credit's smart contract. Rating agencies become rating oracles.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-year">2029+</div>
+      <div class="tl-title">Carbon-as-collateral · Programmable ESG</div>
+      <div class="tl-body">Retired credits earn yield on staking. Unretired credits become collateral in permissioned DeFi lending. Corporate ESG policies compile into smart contracts: "auto-retire N credits when quarterly emissions cross X." The Bloomberg-terminal-for-carbon vision — but as a settlement layer, not a data terminal.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHY UNYKORN ================= -->
+<section class="stage">
+  <div class="reveal">
+    <div class="eyebrow">05 · Why UnyKorn</div>
+    <h2 class="section-title">Same non-custodial gateway model, <span class="accent">applied to carbon assets.</span></h2>
+    <p class="section-lede">UnyKorn LLC operates every product it ships as a non-custodial software gateway. Balance-sheet exposure sits at BitGo Bank &amp; Trust N.A. (OCC-chartered, up to $250M insured), or at partner registries and custodians. That model is why we can carry compliance, custody, and settlement risk without the capital footprint of an actual exchange or bank.</p>
+  </div>
+
+  <div class="card-grid reveal">
+    <div class="card">
+      <div class="cnum">// substrate</div>
+      <h3>Provenance layer already built</h3>
+      <p>The LPS-1 standard — paragraph-level SHA-256 → Merkle → Polygon 137 + Bitcoin OpenTimestamps — is Kevan's document integrity primitive, deployed in production for capital-markets documents. It's the natural on-chain retirement receipt.</p>
+    </div>
+    <div class="card">
+      <div class="cnum">// substrate</div>
+      <h3>Permissioned-token expertise</h3>
+      <p>ERC-3643 permissioned securities are already deployed in the LDX capital-markets stack — used for CMBS tranching, refi settlement, and cap-table gating on private debt tokens. Adapting the same compliance layer to carbon credits is a domain adjustment, not a re-build.</p>
+    </div>
+    <div class="card">
+      <div class="cnum">// substrate</div>
+      <h3>Institutional custody wired in</h3>
+      <p>BitGo Enterprise webhook sweeps, Anchorage, and Fireblocks integrations are live in the UnyKorn stack. The custody path for a tokenized carbon credit is not a hypothetical — it's the same pipe that handles USDC/USDT vault flows today.</p>
+    </div>
+    <div class="card">
+      <div class="cnum">// substrate</div>
+      <h3>AI-native product surface</h3>
+      <p>Every UnyKorn client-facing product ships with an AI copilot from day one. Same posture here: Carbon Copilot answers "what's my footprint," "what's my SREC uplift in NJ," "compose me a 1,000-ton offset portfolio under $15K" — using the engine as ground truth.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="stage">
+  <div class="cta-block reveal">
+    <h2>Bring your portfolio.<br>We'll size the opportunity.</h2>
+    <p>30-minute call. If your portfolio has any physical assets — hospitality, commercial real estate, energy generation, industrial — we can size your emissions, SREC monetization, and offset gap on the call. No slides.</p>
+    <a class="btn btn-primary" href="mailto:kevan.burns@fthtrading.com?subject=UnyKorn%20Carbon%20—%20introduction">Email <span class="mono">kevan.burns@fthtrading.com</span> <span class="arrow">→</span></a>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="foot-links">
+    <a href="./dashboard.html">Live Dashboard</a> ·
+    <a href="https://github.com/FTHTrading/UnyKorn-Carbon" target="_blank">Source on GitHub</a> ·
+    <a href="mailto:kevan.burns@fthtrading.com">Contact</a>
+  </div>
+  <div>UnyKorn LLC · Wyoming · EIN 42-3536633 · D-U-N-S 145059107 · GLEIF LEI 2549008J7LUHSQ73SI26</div>
+  <div class="fine">
+    UnyKorn LLC operates as a non-custodial software gateway. Custody of digital assets, when applicable, is delegated to BitGo Bank &amp; Trust N.A. (OCC-chartered). Services described refer to software infrastructure, not banking or investment advisory services. Nothing on this page constitutes an offer to sell or a solicitation to buy any security or carbon credit.
+  </div>
+</footer>
+
 <script>
-const DATA = {"rollup":{"as_of_year":2026,"total_entities":6,"gross_tco2e":2064.87,"srec_avoided_tco2e":214.72,"net_tco2e_needing_offset":1850.15,"estimated_offset_cost_low_usd":132470.74,"estimated_offset_cost_high_usd":303794.63,"total_srec_value_usd":4200,"per_entity":[{"entity":"acme-holdings","legal_name":"Acme Holdings LLC","gross_tco2e":24.8,"srec_avoided_tco2e":0,"net_tco2e":24.8,"srec_value_usd":0},{"entity":"acme-parent-inc","legal_name":"Acme Parent Inc.","gross_tco2e":0,"srec_avoided_tco2e":0,"net_tco2e":0,"srec_value_usd":0},{"entity":"acme-lending","legal_name":"Acme Commercial Lending Co.","gross_tco2e":60.4,"srec_avoided_tco2e":0,"net_tco2e":60.4,"srec_value_usd":0},{"entity":"example-hotel-se","legal_name":"Example Southeast Hotel LLC","gross_tco2e":739.94,"srec_avoided_tco2e":59.3,"net_tco2e":680.64,"srec_value_usd":1160},{"entity":"example-waterpark","legal_name":"Example Waterpark LLC","gross_tco2e":1239.44,"srec_avoided_tco2e":155.42,"net_tco2e":1084.02,"srec_value_usd":3040},{"entity":"example-vault-spv","legal_name":"Example Vault SPV","gross_tco2e":0.29,"srec_avoided_tco2e":0,"net_tco2e":0.29,"srec_value_usd":0}]},"breakdowns":[{"entity":"acme-holdings","year":2026,"categories":{"electricity":0,"natural_gas":0,"cloud":16.934399999999997,"travel":3.624,"vehicle":2.84384,"process":0,"headcount_overhead":1.4},"total_tco2e":24.8,"scope_1_tco2e":2.84,"scope_2_tco2e":16.93,"scope_3_tco2e":5.02},{"entity":"acme-parent-inc","year":2026,"categories":{"electricity":0,"natural_gas":0,"cloud":0,"travel":0,"vehicle":0,"process":0,"headcount_overhead":0},"total_tco2e":0,"scope_1_tco2e":0,"scope_2_tco2e":0,"scope_3_tco2e":0},{"entity":"acme-lending","year":2026,"categories":{"electricity":18.476,"natural_gas":7.433999999999999,"cloud":6.0792,"travel":12.414,"vehicle":15.9966,"process":0,"headcount_overhead":0},"total_tco2e":60.4,"scope_1_tco2e":23.43,"scope_2_tco2e":24.56,"scope_3_tco2e":12.41},{"entity":"example-hotel-se","year":2026,"categories":{"electricity":593.05,"natural_gas":116.81999999999998,"cloud":0,"travel":0,"vehicle":12.0703,"process":18,"headcount_overhead":0},"total_tco2e":739.94,"scope_1_tco2e":146.89,"scope_2_tco2e":593.05,"scope_3_tco2e":0},{"entity":"example-waterpark","year":2026,"categories":{"electricity":973.4199999999998,"natural_gas":217.70999999999998,"cloud":0,"travel":0,"vehicle":6.311599999999999,"process":42,"headcount_overhead":0},"total_tco2e":1239.44,"scope_1_tco2e":266.02,"scope_2_tco2e":973.42,"scope_3_tco2e":0},{"entity":"example-vault-spv","year":2026,"categories":{"electricity":0,"natural_gas":0,"cloud":0.28608,"travel":0,"vehicle":0,"process":0,"headcount_overhead":0},"total_tco2e":0.29,"scope_1_tco2e":0,"scope_2_tco2e":0.29,"scope_3_tco2e":0}],"srecs":[{"entity":"example-hotel-se","year":2026,"state":"GA","generation_mwh":145,"eligible_srecs":145,"avoided_tco2e":59.3,"estimated_value_usd":1160,"price_per_srec_usd":8},{"entity":"example-waterpark","year":2026,"state":"GA","generation_mwh":380,"eligible_srecs":380,"avoided_tco2e":155.42,"estimated_value_usd":3040,"price_per_srec_usd":8}],"offsetRec":{"entity":"PORTFOLIO_TOTAL","year":2026,"tco2e_needed":1850.15,"portfolio":[{"category":"forestry","weight_pct":40,"tco2e_allocated":740.06,"price_per_tco2e_low":5,"price_per_tco2e_high":18,"cost_low_usd":3700.3,"cost_high_usd":13321.08},{"category":"soil_carbon","weight_pct":30,"tco2e_allocated":555.04,"price_per_tco2e_low":12,"price_per_tco2e_high":30,"cost_low_usd":6660.54,"cost_high_usd":16651.35},{"category":"biochar","weight_pct":20,"tco2e_allocated":370.03,"price_per_tco2e_low":130,"price_per_tco2e_high":240,"cost_low_usd":48103.9,"cost_high_usd":88807.2},{"category":"direct_air_capture","weight_pct":10,"tco2e_allocated":185.02,"price_per_tco2e_low":400,"price_per_tco2e_high":1000,"cost_low_usd":74006,"cost_high_usd":185015}],"total_cost_usd_low":132470.74,"total_cost_usd_high":303794.63}};
+  // Reveal-on-scroll
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) if (e.isIntersecting) {
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    }
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-function usd(n) { return "$" + Math.round(n).toLocaleString("en-US"); }
-function t(n)   { return n.toLocaleString("en-US", { maximumFractionDigits: 1 }); }
-
-// KPIs
-const r = DATA.rollup;
-const kpiEl = document.getElementById("kpis");
-kpiEl.innerHTML = `
-  <div class="kpi"><p class="label">Gross emissions</p><p class="value">${t(r.gross_tco2e)}</p><p class="sub">tCO2e across ${r.total_entities} entities</p></div>
-  <div class="kpi leaf"><p class="label">SREC-avoided</p><p class="value">${t(r.srec_avoided_tco2e)}</p><p class="sub">tCO2e from renewable generation</p></div>
-  <div class="kpi amber"><p class="label">Net offset gap</p><p class="value">${t(r.net_tco2e_needing_offset)}</p><p class="sub">tCO2e requiring offsets</p></div>
-  <div class="kpi"><p class="label">SREC value</p><p class="value">${usd(r.total_srec_value_usd)}</p><p class="sub">indicative market value</p></div>
-  <div class="kpi amber"><p class="label">Offset cost</p><p class="value">${usd(r.estimated_offset_cost_low_usd)}</p><p class="sub">low – high: ${usd(r.estimated_offset_cost_high_usd)}</p></div>
-`;
-
-// Entities table
-const entitiesBody = document.querySelector("#entities-table tbody");
-DATA.rollup.per_entity
-  .slice()
-  .sort((a,b) => b.gross_tco2e - a.gross_tco2e)
-  .forEach(e => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `<td class="name">${e.legal_name}<br><span class="dim">${e.entity}</span></td>
-      <td class="num">${t(e.gross_tco2e)}</td>
-      <td class="num">${t(e.srec_avoided_tco2e)}</td>
-      <td class="num"><strong>${t(e.net_tco2e)}</strong></td>
-      <td class="num">${usd(e.srec_value_usd)}</td>`;
-    entitiesBody.appendChild(tr);
+  // Hover glow follow
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+      card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+    });
   });
-
-// Category bars
-const cats = { electricity:0, natural_gas:0, cloud:0, travel:0, vehicle:0, process:0, headcount_overhead:0 };
-DATA.breakdowns.forEach(b => {
-  for (const [k,v] of Object.entries(b.categories)) cats[k] += v;
-});
-const maxCat = Math.max(...Object.values(cats));
-const catBody = document.querySelector("#cat-table tbody");
-const catLabels = {
-  electricity:"Electricity",
-  natural_gas:"Natural gas",
-  cloud:"Cloud compute",
-  travel:"Travel",
-  vehicle:"Vehicle fuel",
-  process:"Direct process",
-  headcount_overhead:"Headcount overhead",
-};
-for (const [k, v] of Object.entries(cats).sort((a,b)=>b[1]-a[1])) {
-  const tr = document.createElement("tr");
-  const pct = maxCat ? (v/maxCat*100) : 0;
-  tr.innerHTML = `<td style="width:170px;">${catLabels[k]}</td>
-    <td class="barcell"><span class="bar" style="width:${pct.toFixed(1)}%;"></span></td>
-    <td class="num" style="width:120px;">${t(v)} tCO2e</td>`;
-  catBody.appendChild(tr);
-}
-
-// Offset portfolio
-const offsetBody = document.querySelector("#offset-table tbody");
-DATA.offsetRec.portfolio.forEach(p => {
-  const tr = document.createElement("tr");
-  tr.innerHTML = `<td class="name">${p.category.replace(/_/g," ")}</td>
-    <td class="num">${p.weight_pct}%</td>
-    <td class="num">${t(p.tco2e_allocated)}</td>
-    <td class="num">${usd(p.cost_low_usd)}</td>
-    <td class="num">${usd(p.cost_high_usd)}</td>`;
-  offsetBody.appendChild(tr);
-});
-const foot = document.createElement("tr");
-foot.style.background = "#eaf1ec";
-foot.innerHTML = `<td class="name" colspan="3" style="text-align:right;">TOTAL</td>
-  <td class="num"><strong>${usd(DATA.offsetRec.total_cost_usd_low)}</strong></td>
-  <td class="num"><strong>${usd(DATA.offsetRec.total_cost_usd_high)}</strong></td>`;
-offsetBody.appendChild(foot);
 </script>
 </body>
 </html>

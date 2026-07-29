@@ -2,7 +2,7 @@
   "name": "unykorn-carbon",
   "version": "0.1.0",
   "private": true,
-  "description": "Carbon footprint accounting + SREC engine for UnyKorn and LD Capital portfolio",
+  "description": "Portfolio carbon footprint accounting + SREC engine for private company portfolios",
   "type": "module",
   "bin": {
     "carbon": "./src/cli.ts"

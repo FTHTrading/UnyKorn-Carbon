@@ -125,7 +125,7 @@ switch (cmd) {
       .replace(/__DATA__/g, JSON.stringify({ rollup, breakdowns, srecs, offsetRec }));
 
     const outPath = PUBLISH
-      ? join(ROOT, "docs/index.html")
+      ? join(ROOT, "docs/dashboard.html")
       : join(ROOT, "dashboard/local.html");
     mkdirSync(dirname(outPath), { recursive: true });
     writeFileSync(outPath, rendered);
