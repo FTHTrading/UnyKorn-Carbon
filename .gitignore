@@ -23,3 +23,16 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
+
+classes/*.json
+!classes/*.example.json
+batches/*.json
+!batches/*.example.json
+out/
+
+# Kevan's account list for the account checker — public keys only, still keep local
+/accounts.txt
+
+# Local tool indexes
+/.skipper/
+/.claude/

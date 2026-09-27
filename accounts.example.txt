@@ -1,0 +1,8 @@
+# accounts.txt — one Stellar PUBLIC key (G..., 56 chars) per line; blank lines and # comments are ignored.
+# PUBLIC KEYS ONLY. Never put an S... secret key here; the checker drops any S-shaped line and tells you to rotate it.
+# Copy this file to accounts.txt (gitignored) and replace the two EXAMPLE lines below with your own account ids.
+
+# EXAMPLE 1 — well-known all-zero mainnet address (funded, publicly known, not controlled by anyone) — shows a live 200 record
+GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWHF
+# EXAMPLE 2 — checksum-valid placeholder that Horizon reports 404 (unfunded) — shows the unfunded path
+GB2W46LLN5ZG4LLDMFZGE33OFVSXQYLNOBWGKLLQNRQWGZLIN5WGJF22

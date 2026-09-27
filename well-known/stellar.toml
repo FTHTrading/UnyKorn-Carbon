@@ -1,0 +1,22 @@
+# Serve at https://carbon.unykorn.ai/.well-known/stellar.toml (SEP-1)
+VERSION = "2.7.0"
+NETWORK_PASSPHRASE = "Public Global Stellar Network ; September 2015"
+ACCOUNTS = ["G...ISSUER_PUBLIC_KEY"]
+
+[DOCUMENTATION]
+ORG_NAME = "UnyKorn LLC"
+ORG_URL = "https://unykorn.ai"
+ORG_OFFICIAL_EMAIL = "kevan@unykorn.org"
+ORG_PHYSICAL_ADDRESS = "5655 Peachtree Pkwy NW, Norcross, GA 30099"
+
+[[CURRENCIES]]
+code = "UKCO2"
+issuer = "G...ISSUER_PUBLIC_KEY"
+display_decimals = 7
+name = "UnyKorn Carbon Unit (1 = 1 tCO2e)"
+desc = "Each unit maps to one tonne of verified emission reduction in a locked registry batch. Holders are KYB-approved. Retiring = paying units back to the issuer with the retirement record hash as memo."
+conditions = "AUTH_REQUIRED, AUTH_REVOCABLE, CLAWBACK_ENABLED. Units are clawed back if the underlying credit is invalidated."
+is_asset_anchored = true
+anchor_asset_type = "other"
+anchor_asset = "Verified carbon credits (registry batches listed at carbon.unykorn.ai)"
+regulated = true

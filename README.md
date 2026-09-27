@@ -125,3 +125,25 @@ Productizing the engine for other private-portfolio operators is a natural next 
 ---
 
 *UnyKorn LLC operates as a non-custodial software gateway. Emissions and SREC calculations are decision-support outputs, not audited financial statements or regulatory-grade disclosures.*
+
+---
+
+## Carbon Rail on Stellar (`src/stellar/`)
+
+One tonne of verified reduction = one `UKCO2` unit on Stellar, with regulated-asset controls built into the protocol: holders must be approved (`AUTH_REQUIRED`), can be frozen (`AUTH_REVOCABLE`), and invalidated units can be clawed back (`AUTH_CLAWBACK_ENABLED`). Retiring a unit means paying it back to the issuer with the SHA-256 of the public retirement record as the memo. Stellar's 7 decimals let a single machine call retire as little as 0.1 g CO2e.
+
+**Energy-eater offsets over x402 / MPP / ERC-8004.** Every paid machine call reports its energy. The meter converts kWh to CO2e with the eGRID factors in `factors.ts`, adds the offset price to the x402 402-challenge (the agent sees service price + footprint price), and batches retirements per ERC-8004 agent identity, each one listing the x402/MPP payment refs it covers.
+
+Offline run (`npm run stellar:demo`): 13 Stellar transactions built, signed and decoded, and 1,000 metered agent calls priced and batched into retirements:
+- 1,000 mixed calls ≈ 1.08 kWh ≈ 0.42 kg CO2e. Making them carbon-neutral costs about $0.007 in total (a $0.001 large-model call carries a $0.000018 offset surcharge).
+- 1 GWh of Georgia grid power ≈ 409 tCO2e ≈ $6,135 at a $15/t methane-credit midpoint. A 100 MW data center running a month draws ~72 GWh, ≈ 29,000 t.
+
+**Issue for real** (from a machine with network access):
+```bash
+cp classes/ukco2.example.json classes/ukco2.json      # fill issuer + treasury public keys, serialRoot, dataRoomHash
+cp batches/batch.example.json batches/b1.json         # the registry batch these units represent
+npm run stellar:issue -- --net testnet --class classes/ukco2.json --batch batches/b1.json
+```
+Without secrets in the environment the script writes unsigned XDRs to `out/stellar/` for your wallet (Freighter, Lobstr, Ledger, Stellar Lab) to sign. With `STELLAR_SECRET_ISSUER` / `STELLAR_SECRET_TREASURY` set in your shell it signs locally, and `--submit` posts to Horizon. Publish `well-known/stellar.toml` at the home domain so wallets show the asset's terms.
+
+Account funding (Stellar reserves): issuer ~3 XLM (1 base + 4 proof data entries), treasury ~1.5 XLM (1 base + 1 trustline), plus a few thousand stroops of fees.

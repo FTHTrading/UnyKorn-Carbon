@@ -14,11 +14,19 @@
     "report": "tsx src/cli.ts report",
     "dashboard": "tsx src/cli.ts dashboard",
     "dashboard:publish": "tsx src/cli.ts dashboard --publish",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "stellar:demo": "tsx src/stellar/cli.ts demo",
+    "stellar:issue": "tsx src/stellar/cli.ts issue",
+    "stellar:retire": "tsx src/stellar/cli.ts retire",
+    "accounts": "tsx scripts/check-accounts.ts",
+    "test": "node --import tsx --test \"test/**/*.test.ts\""
   },
   "devDependencies": {
     "@types/node": "^22.10.5",
     "tsx": "^4.19.2",
     "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "@stellar/stellar-sdk": "^13.3.0"
   }
 }

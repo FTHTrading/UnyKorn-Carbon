@@ -1,0 +1,10 @@
+{
+  "code": "UKCO2",
+  "issuer": "G...ISSUER_PUBLIC_KEY",
+  "treasury": "G...TREASURY_PUBLIC_KEY",
+  "homeDomain": "carbon.unykorn.ai",
+  "methodology": "BCarbon MEEWP v2.1",
+  "registry": "UnyKorn Harbor",
+  "serialRoot": "0000000000000000000000000000000000000000000000000000000000000000",
+  "dataRoomHash": "0000000000000000000000000000000000000000000000000000000000000000"
+}
